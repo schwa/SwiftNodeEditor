@@ -1,0 +1,8 @@
+steps:
+  - commands:
+      - "swift package clean"
+      - "swift build"
+      - "swift test --enable-code-coverage"
+      - "xcodebuild -scheme 'Everything' -allowProvisioningUpdates -destination 'generic/platform=macOS'"
+      - "xcodebuild -scheme 'Everything' -allowProvisioningUpdates -destination 'generic/platform=iOS'"
+      - "swiftlint lint --quiet"
