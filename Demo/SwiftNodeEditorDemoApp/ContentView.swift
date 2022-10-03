@@ -1,12 +1,5 @@
-//
-//  ContentView.swift
-//  SwiftNodeEditorDemo
-//
-//  Created by Jonathan Wight on 10/2/22.
-//
-
 import SwiftUI
-import SwiftNodeEditorUI
+import SwiftNodeEditorDemo
 
 struct ContentView: View {
     var body: some View {

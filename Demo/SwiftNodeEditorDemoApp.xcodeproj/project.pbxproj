@@ -11,11 +11,11 @@
 		45565AFE28EABA9500356C55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45565AFD28EABA9500356C55 /* ContentView.swift */; };
 		45565B0028EABA9700356C55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565AFF28EABA9700356C55 /* Assets.xcassets */; };
 		45565B0428EABA9700356C55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565B0328EABA9700356C55 /* Preview Assets.xcassets */; };
-		45565B1028EABB5A00356C55 /* SwiftNodeEditorUI in Frameworks */ = {isa = PBXBuildFile; productRef = 45565B0F28EABB5A00356C55 /* SwiftNodeEditorUI */; };
+		4566031D28EABFCB006EB5A9 /* SwiftNodeEditorDemo in Frameworks */ = {isa = PBXBuildFile; productRef = 4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45565AF828EABA9500356C55 /* SwiftNodeEditorDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNodeEditorDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		45565AF828EABA9500356C55 /* SwiftNodeEditorDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNodeEditorDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		45565AFB28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftNodeEditorDemoApp.swift; sourceTree = "<group>"; };
 		45565AFD28EABA9500356C55 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		45565AFF28EABA9700356C55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -29,7 +29,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45565B1028EABB5A00356C55 /* SwiftNodeEditorUI in Frameworks */,
+				4566031D28EABFCB006EB5A9 /* SwiftNodeEditorDemo in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,7 +40,7 @@
 			isa = PBXGroup;
 			children = (
 				45565B0A28EABAAC00356C55 /* Packages */,
-				45565AFA28EABA9500356C55 /* SwiftNodeEditorDemo */,
+				45565AFA28EABA9500356C55 /* SwiftNodeEditorDemoApp */,
 				45565AF928EABA9500356C55 /* Products */,
 				45565B0C28EABB2500356C55 /* Frameworks */,
 			);
@@ -49,12 +49,12 @@
 		45565AF928EABA9500356C55 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45565AF828EABA9500356C55 /* SwiftNodeEditorDemo.app */,
+				45565AF828EABA9500356C55 /* SwiftNodeEditorDemoApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		45565AFA28EABA9500356C55 /* SwiftNodeEditorDemo */ = {
+		45565AFA28EABA9500356C55 /* SwiftNodeEditorDemoApp */ = {
 			isa = PBXGroup;
 			children = (
 				45565AFB28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift */,
@@ -63,7 +63,7 @@
 				45565B0128EABA9700356C55 /* SwiftNodeEditorDemo.entitlements */,
 				45565B0228EABA9700356C55 /* Preview Content */,
 			);
-			path = SwiftNodeEditorDemo;
+			path = SwiftNodeEditorDemoApp;
 			sourceTree = "<group>";
 		};
 		45565B0228EABA9700356C55 /* Preview Content */ = {
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		45565AF728EABA9500356C55 /* SwiftNodeEditorDemo */ = {
+		45565AF728EABA9500356C55 /* SwiftNodeEditorDemoApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45565B0728EABA9700356C55 /* Build configuration list for PBXNativeTarget "SwiftNodeEditorDemo" */;
+			buildConfigurationList = 45565B0728EABA9700356C55 /* Build configuration list for PBXNativeTarget "SwiftNodeEditorDemoApp" */;
 			buildPhases = (
 				45565AF428EABA9500356C55 /* Sources */,
 				45565AF528EABA9500356C55 /* Frameworks */,
@@ -104,12 +104,12 @@
 			);
 			dependencies = (
 			);
-			name = SwiftNodeEditorDemo;
+			name = SwiftNodeEditorDemoApp;
 			packageProductDependencies = (
-				45565B0F28EABB5A00356C55 /* SwiftNodeEditorUI */,
+				4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */,
 			);
 			productName = SwiftNodeEditorDemo;
-			productReference = 45565AF828EABA9500356C55 /* SwiftNodeEditorDemo.app */;
+			productReference = 45565AF828EABA9500356C55 /* SwiftNodeEditorDemoApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -127,7 +127,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 45565AF328EABA9500356C55 /* Build configuration list for PBXProject "SwiftNodeEditorDemo" */;
+			buildConfigurationList = 45565AF328EABA9500356C55 /* Build configuration list for PBXProject "SwiftNodeEditorDemoApp" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -140,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				45565AF728EABA9500356C55 /* SwiftNodeEditorDemo */,
+				45565AF728EABA9500356C55 /* SwiftNodeEditorDemoApp */,
 			);
 		};
 /* End PBXProject section */
@@ -284,10 +284,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SwiftNodeEditorDemo/SwiftNodeEditorDemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SwiftNodeEditorDemoApp/SwiftNodeEditorDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftNodeEditorDemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SwiftNodeEditorDemoApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 6E23EP94PG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -307,7 +307,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.schwa.SwiftNodeEditorDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.schwa.SwiftNodeEditorDemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -322,10 +322,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = SwiftNodeEditorDemo/SwiftNodeEditorDemo.entitlements;
+				CODE_SIGN_ENTITLEMENTS = SwiftNodeEditorDemoApp/SwiftNodeEditorDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"SwiftNodeEditorDemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"SwiftNodeEditorDemoApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 6E23EP94PG;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -345,7 +345,7 @@
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = io.schwa.SwiftNodeEditorDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = io.schwa.SwiftNodeEditorDemoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
@@ -358,7 +358,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		45565AF328EABA9500356C55 /* Build configuration list for PBXProject "SwiftNodeEditorDemo" */ = {
+		45565AF328EABA9500356C55 /* Build configuration list for PBXProject "SwiftNodeEditorDemoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45565B0528EABA9700356C55 /* Debug */,
@@ -367,7 +367,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45565B0728EABA9700356C55 /* Build configuration list for PBXNativeTarget "SwiftNodeEditorDemo" */ = {
+		45565B0728EABA9700356C55 /* Build configuration list for PBXNativeTarget "SwiftNodeEditorDemoApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45565B0828EABA9700356C55 /* Debug */,
@@ -379,9 +379,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		45565B0F28EABB5A00356C55 /* SwiftNodeEditorUI */ = {
+		4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = SwiftNodeEditorUI;
+			productName = SwiftNodeEditorDemo;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

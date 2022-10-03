@@ -16,8 +16,8 @@ let package = Package(
             targets: ["SwiftNodeEditor"]
         ),
         .library(
-            name: "SwiftNodeEditorUI",
-            targets: ["SwiftNodeEditorUI"]
+            name: "SwiftNodeEditorDemo",
+            targets: ["SwiftNodeEditorDemo"]
         ),
     ],
     dependencies: [
@@ -29,7 +29,7 @@ let package = Package(
             dependencies: ["Everything"]
         ),
         .target(
-            name: "SwiftNodeEditorUI",
+            name: "SwiftNodeEditorDemo",
             dependencies: ["SwiftNodeEditor"]
         ),
         .testTarget(

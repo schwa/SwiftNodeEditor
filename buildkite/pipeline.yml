@@ -4,6 +4,6 @@ steps:
       - "swift build"
       - "swift test --enable-code-coverage"
       - "cd Demo"
-      - "xcodebuild -scheme 'SwiftNodeEditorDemo' -allowProvisioningUpdates -destination 'generic/platform=macOS'"
-      - "xcodebuild -scheme 'SwiftNodeEditorDemo' -allowProvisioningUpdates -destination 'generic/platform=iOS'"
+      - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=macOS'"
+      - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=iOS'"
       - "swiftlint lint --quiet"
