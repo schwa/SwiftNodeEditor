@@ -460,7 +460,7 @@ public extension View {
 protocol ContextProtocol {
     associatedtype Node where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket
-    associatedtype Socket //: SocketProtocol
+    associatedtype Socket: SocketProtocol
     associatedtype Presentation: PresentationProtocol where Presentation.Node == Node
 }
 
@@ -473,6 +473,7 @@ protocol ContextProvider {
 }
 
 extension Color {
+    // TODO: This is silly. Replace with presentation.
     static let placeholderBlack = Color.black
     static let placeholderWhite = Color.white
     static let placeholder1 = Color.purple
@@ -496,6 +497,20 @@ struct _Context <Node_, Wire_, Socket_, Presentation_>: ContextProtocol where Wi
 
 // MARK: -
 
+public extension Path {
+    static func wire(start: CGPoint, end: CGPoint) -> Path {
+        Path { path in
+            path.move(to: start)
+            if abs(start.x - end.x) < 5 {
+                path.addLine(to: end)
+            }
+            else {
+                path.addCurve(to: end, control1: CGPoint(x: (start.x + end.x) / 2, y: start.y), control2: CGPoint(x: (start.x + end.x) / 2, y: end.y))
+            }
+        }
+    }
+}
+
 class Model <Context>: ObservableObject, ContextProvider where Context: ContextProtocol {
     @Binding
     var nodes: [Node]
@@ -513,5 +528,19 @@ class Model <Context>: ObservableObject, ContextProvider where Context: ContextP
         self._wires = wires
         self._selection = selection
         self.presentation = presentation
+    }
+}
+
+struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
+    let startLocation: CGPoint
+    let endLocation: CGPoint
+    let startSocket: Socket
+    let existingWire: Wire?
+
+    init(startLocation: CGPoint, endLocation: CGPoint, startSocket: Socket, existingWire: Wire?) {
+        self.startLocation = startLocation
+        self.endLocation = endLocation
+        self.startSocket = startSocket
+        self.existingWire = existingWire
     }
 }

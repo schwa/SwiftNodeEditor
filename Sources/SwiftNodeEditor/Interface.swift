@@ -33,16 +33,3 @@ public protocol PresentationProtocol {
     func content(for wire: Binding<Wire>) -> WireContent
 }
 
-struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
-    let startLocation: CGPoint
-    let endLocation: CGPoint
-    let startSocket: Socket
-    let existingWire: Wire?
-
-    init(startLocation: CGPoint, endLocation: CGPoint, startSocket: Socket, existingWire: Wire?) {
-        self.startLocation = startLocation
-        self.endLocation = endLocation
-        self.startSocket = startSocket
-        self.existingWire = existingWire
-    }
-}

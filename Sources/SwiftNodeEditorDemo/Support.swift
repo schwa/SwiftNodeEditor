@@ -1,20 +1,14 @@
+//
+//  File.swift
+//  
+//
+//  Created by Jonathan Wight on 10/3/22.
+//
+
 import Foundation
-import SwiftUI
 
-public extension Path {
-    static func wire(start: CGPoint, end: CGPoint) -> Path {
-        Path { path in
-            path.move(to: start)
-            if abs(start.x - end.x) < 5 {
-                path.addLine(to: end)
-            }
-            else {
-                path.addCurve(to: end, control1: CGPoint(x: (start.x + end.x) / 2, y: start.y), control2: CGPoint(x: (start.x + end.x) / 2, y: end.y))
-            }
-        }
-    }
-}
 
+// TODO use LolUID from Everything
 public struct LolID: Hashable {
     var rawValue: Int
 
@@ -60,12 +54,5 @@ extension UnsafeMutablePointer where Pointee == os_unfair_lock {
             unlock()
         }
         return try transaction()
-    }
-}
-
-extension View {
-    func loggingPreference<K>(key: K.Type = K.self, value: K.Value) -> some View where K: PreferenceKey {
-        print("SET PREFERENCES", key)
-        return preference(key: key, value: value)
     }
 }

@@ -23,3 +23,6 @@ See [CAVEAT.md](CAVEAT.md).
 - [ ] Add better z-layer behaviour
 - [ ] Unit tests for model-layer
 - [ ] Documentation
+- [ ] Get rid of weird underscore naming with generics
+- [ ] Add presentation for pins 
+- [ ] Add presentation for wires(?)
