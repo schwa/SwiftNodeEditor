@@ -459,14 +459,6 @@ public extension View {
 
 // MARK: -
 
-
-extension Color {
-    // TODO: This is silly. Replace with presentation.
-    static let placeholderBlack = Color.black
-    static let placeholderWhite = Color.white
-    static let placeholder1 = Color.purple
-}
-
 struct EmptyPresentation <Node, Wire, Socket>: PresentationProtocol where Node: NodeProtocol, Wire: WireProtocol, Socket: SocketProtocol {
     func content(for node: Binding<Node>) -> some View {
         EmptyView()
@@ -486,20 +478,6 @@ struct _Context <Node, Wire, Socket, Presentation>: ContextProtocol where Wire: 
 }
 
 // MARK: -
-
-public extension Path {
-    static func wire(start: CGPoint, end: CGPoint) -> Path {
-        Path { path in
-            path.move(to: start)
-            if abs(start.x - end.x) < 5 {
-                path.addLine(to: end)
-            }
-            else {
-                path.addCurve(to: end, control1: CGPoint(x: (start.x + end.x) / 2, y: start.y), control2: CGPoint(x: (start.x + end.x) / 2, y: end.y))
-            }
-        }
-    }
-}
 
 class Model <Context>: ObservableObject, ContextProvider where Context: ContextProtocol {
     @Binding

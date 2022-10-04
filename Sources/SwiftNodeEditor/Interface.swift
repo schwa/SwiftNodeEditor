@@ -34,15 +34,14 @@ public protocol PresentationProtocol {
     associatedtype Wire: WireProtocol
     associatedtype Socket: SocketProtocol
 
+    // TODO: Use ViewModifiers here instead of Views?
+
     associatedtype NodeContent: View
     associatedtype WireContent: View
     associatedtype SocketContent: View
 
     func content(for node: Binding<Node>) -> NodeContent
-
-    // TODO: This is likely NOT the presentation we use. Perhaps a view modifier instead.
     func content(for wire: Binding<Wire>) -> WireContent
-
     func content(for socket: Binding<Socket>) -> SocketContent
 
 }
