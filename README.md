@@ -9,10 +9,10 @@ A package of SwiftUI code for making mode editors
 
 ## Usage
 
-1: `import SwiftNodeEditor`
-2: Conform your model types to `NodeProtocol` (nodes contain pins), `PinProtocol` (pins are connected by wires), `WireProtocol`
-3: Implement a `PresentationProtocol` to control how your model types are presented and can be interacted with.
-4: Embed a `NodeGraphEditorView` in your SwiftUI view hierarchy and provide it with your model types and presentation protocol.
+1. `import SwiftNodeEditor`
+2. Conform your model types to `NodeProtocol` (nodes contain pins), `PinProtocol` (pins are connected by wires), `WireProtocol`
+3. Implement a `PresentationProtocol` to control how your model types are presented and can be interacted with.
+4. Embed a `NodeGraphEditorView` in your SwiftUI view hierarchy and provide it with your model types and presentation protocol.
 
 See SwiftNodeEditorDemo for a complex showing multiple presentation protocols and several ways of interacting with your objects.
 
