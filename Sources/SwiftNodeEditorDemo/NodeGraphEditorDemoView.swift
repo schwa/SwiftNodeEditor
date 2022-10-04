@@ -19,23 +19,20 @@ public struct NodeGraphEditorDemoView: View {
     public var body: some View {
         #if os(macOS)
         return HSplitView {
-            // NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: BasicPresentation())
-            editorView()
+            editorView
             .frame(minWidth: 320, minHeight: 240)
             .layoutPriority(1)
-            // TODO: mess
-            model.selection.first.map { id in NodeInfoView(node: Binding(get: {
-                model.nodes.first { id == $0.id }!
-            }, set: { node in
-                let index = model.nodes.firstIndex(where: { $0.id == node.id })!
-                model.nodes[index] = node
-            }))
-            }
+
+            detailView
             .ignoresSafeArea(.all, edges: .top)
         }
         .toolbar {
-            Button(action: { model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100))) }, label: { Image(systemName: "plus") })
-            Button(action: {
+            Button {
+                model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100))) }
+            label: {
+                Image(systemName: "plus")
+            }
+            Button {
                 model.nodes = model.nodes.map {
                     var node = $0
                     node.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
@@ -46,7 +43,10 @@ public struct NodeGraphEditorDemoView: View {
                     wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
                     return wire
                 }
-            }, label: { Image(systemName: "paintpalette") })
+            }
+            label: {
+                Image(systemName: "paintpalette")
+            }
             Picker("Mode", selection: $presentationMode) {
                 Text("Basic").tag(PresentationMode.basic)
                 Text("Radial").tag(PresentationMode.radial)
@@ -61,7 +61,7 @@ public struct NodeGraphEditorDemoView: View {
     }
 
     @ViewBuilder
-    func editorView() -> some View {
+    var editorView: some View {
         switch presentationMode {
         case .basic:
             NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: BasicPresentation())
@@ -69,9 +69,21 @@ public struct NodeGraphEditorDemoView: View {
             NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: RadialPresentation())
         }
     }
-}
 
-// MARK: -
+    @ViewBuilder
+    var detailView: some View {
+        if let id = model.selection.first {
+            let binding = Binding<MyNode> {
+                model.nodes.first { id == $0.id }!
+            }
+            set: { node in
+                let index = model.nodes.firstIndex(where: { $0.id == node.id })!
+                model.nodes[index] = node
+            }
+            NodeInfoView(node: binding)
+        }
+    }
+}
 
 // MARK: -
 
