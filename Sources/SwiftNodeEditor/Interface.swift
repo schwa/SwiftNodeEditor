@@ -23,7 +23,7 @@ public protocol SocketProtocol: Identifiable, Hashable {
 // MARK: -
 
 public protocol ContextProtocol {
-    associatedtype Node where Node.Socket == Socket
+    associatedtype Node: NodeProtocol where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket
     associatedtype Socket: SocketProtocol
     associatedtype Presentation: PresentationProtocol where Presentation.Node == Node
