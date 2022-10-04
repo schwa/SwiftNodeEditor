@@ -40,6 +40,7 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Simple demo.
 - [ ] Investigating use NodeStyle/WireStyle etc inside Presentation
 - [ ] It's silly that both pins and sockets need to register the same drag gesture - make one gesture and raise it above.
+- [ ] Interface protocols only need to be Identifiable not Hashable also.
 
 ### Nice to Have
 

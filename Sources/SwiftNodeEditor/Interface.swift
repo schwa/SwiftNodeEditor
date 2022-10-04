@@ -28,8 +28,6 @@ public protocol PresentationProtocol {
     associatedtype Socket: SocketProtocol
     // TODO: Pin: PinProtocol
 
-    // TODO: Use ViewModifiers here instead of Views?
-
     associatedtype NodeContent: View
     associatedtype WireContent: View
     associatedtype SocketContent: View
@@ -54,6 +52,8 @@ public struct WireConfiguration {
 
 
 /*
+TODO: Use Style style protocols instead of content(for:)
+
  public protocol ButtonStyle {
     associatedtype Body : View
     @ViewBuilder func makeBody(configuration: Self.Configuration) -> Self.Body
