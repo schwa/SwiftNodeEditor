@@ -25,7 +25,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
         var model: Model<Presentation>
 
         @State
-        var activeWire: ActiveWire<Socket, Wire>?
+        var activeWire: ActiveWire<Presentation>?
 
         @State
         var socketGeometries: [Socket: CGRect]?
@@ -45,7 +45,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
                 }
             }
             .coordinateSpace(name: "canvas")
-            .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
+            .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
                 self.activeWire = activeWire
             }
             .onPreferenceChange(SocketGeometriesPreferenceKey<Socket>.self) { socketGeometries in
@@ -213,12 +213,12 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
     let end: CGPoint
 
     @State
-    var activeWire: ActiveWire<Socket, Wire>?
+    var activeWire: ActiveWire<Presentation>?
 
     var body: some View {
         let active = activeWire?.existingWire == wire
         WireChromeView<Presentation>(wire: _wire, active: active, start: start, end: end)
-            .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
+            .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
                 self.activeWire = activeWire
             }
             .contextMenu {
@@ -303,7 +303,7 @@ internal struct WireDragSource<Presentation, Content>: View where Presentation: 
     var onActiveWireDragEnded
 
     @State
-    var activeWire: ActiveWire<Socket, Wire>?
+    var activeWire: ActiveWire<Presentation>?
 
     @State
     var dragging = false
@@ -317,7 +317,7 @@ internal struct WireDragSource<Presentation, Content>: View where Presentation: 
 
     var body: some View {
         content()
-            .preference(key: ActiveWirePreferenceKey<Socket, Wire>.self, value: activeWire)
+            .preference(key: ActiveWirePreferenceKey<Presentation>.self, value: activeWire)
             .gesture(dragGesture())
     }
 
@@ -348,7 +348,7 @@ internal struct ActiveWireView<Presentation>: View where Presentation: Presentat
     let end: CGPoint
     let color: Color
 
-    init(activeWire: ActiveWire<Socket, Wire>, socketGeometries: [ActiveWireView<Presentation>.Socket: CGRect]) {
+    init(activeWire: ActiveWire<Presentation>, socketGeometries: [ActiveWireView<Presentation>.Socket: CGRect]) {
         var color: Color {
             for (_, frame) in socketGeometries {
                 if frame.contains(activeWire.endLocation) {
@@ -484,8 +484,11 @@ public extension View {
 
 // MARK: ActiveWire
 
-// TODO: Ideally rely on Presentation here instead of Socket, Wire pair - but making this switch seems to break activeWirePreferenceKeys - need to dig in further when debugging working(!)
-struct ActiveWire<Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
+struct ActiveWire<Presentation>: Equatable where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     let startLocation: CGPoint
     let endLocation: CGPoint
     let startSocket: Socket
@@ -501,12 +504,16 @@ struct ActiveWire<Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket
 
 // MARK: ActiveWirePreferenceKey
 
-struct ActiveWirePreferenceKey<Socket, Wire>: PreferenceKey where Wire: WireProtocol, Wire.Socket == Socket {
-    static var defaultValue: ActiveWire<Socket, Wire>? {
+struct ActiveWirePreferenceKey<Presentation>: PreferenceKey where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
+    static var defaultValue: ActiveWire<Presentation>? {
         nil
     }
 
-    static func reduce(value: inout ActiveWire<Socket, Wire>?, nextValue: () -> ActiveWire<Socket, Wire>?) {
+    static func reduce(value: inout ActiveWire<Presentation>?, nextValue: () -> ActiveWire<Presentation>?) {
         value = nextValue() ?? value
     }
 }
