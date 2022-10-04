@@ -21,6 +21,7 @@ public protocol SocketProtocol: Identifiable, Hashable {
 
 // MARK: -
 
+// TODO: ContextProtocol and PresentationProtocol _almost_ the same thing. Combine.
 public protocol ContextProtocol {
     associatedtype Node: NodeProtocol where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket

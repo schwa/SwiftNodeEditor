@@ -482,6 +482,7 @@ class Model <Context>: ObservableObject, ContextProvider where Context: ContextP
 
 // MARK: ActiveWire
 
+// TODO: Ideally rely on Context here instead of Socket, Wire pair - but making this switch seems to break activeWirePreferenceKeys - need to dig in further when debugging working(!)
 struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
     let startLocation: CGPoint
     let endLocation: CGPoint
