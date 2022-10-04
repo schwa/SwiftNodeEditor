@@ -60,12 +60,13 @@ public struct NodeGraphEditorDemoView: View {
         #endif
     }
 
+    @ViewBuilder
     func editorView() -> some View {
         switch presentationMode {
         case .basic:
-            return NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: BasicPresentation()).eraseToAnyView()
+            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: BasicPresentation())
         case .radial:
-            return NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: RadialPresentation()).eraseToAnyView()
+            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: RadialPresentation())
         }
     }
 }
