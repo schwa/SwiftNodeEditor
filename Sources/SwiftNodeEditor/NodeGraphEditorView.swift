@@ -216,44 +216,33 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
     var activeWire: ActiveWire<Presentation>?
 
     var body: some View {
-        let active = activeWire?.existingWire == wire
-        WireChromeView<Presentation>(wire: _wire, active: active, start: start, end: end)
-            .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
-                self.activeWire = activeWire
+        let configuration = WireConfiguration(active: activeWire?.existingWire == wire, start: start, end: end)
+        ChromeView(wire: _wire, configuration: configuration)
+        .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
+            self.activeWire = activeWire
+        }
+        .contextMenu {
+            Button("Delete") {
+                model.wires.removeAll(where: { wire.id == $0.id })
             }
-            .contextMenu {
-                Button("Delete") {
-                    model.wires.removeAll(where: { wire.id == $0.id })
-                }
-            }
+        }
     }
-}
 
-// MARK: -
+    struct ChromeView: View {
+        @Binding
+        var wire: Wire
 
-// TODO: (maybe) make public when content(for wire) is implemented.
-internal struct WireChromeView<Presentation>: View where Presentation: PresentationProtocol {
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
+        @EnvironmentObject
+        var model: Model<Presentation>
 
-    @Binding
-    var wire: Wire
+        let configuration: WireConfiguration
 
-    // TODO: bundle into "WireState" and move into presentation
-
-    let active: Bool
-    let start: CGPoint
-    let end: CGPoint
-
-    var body: some View {
-        let color = Color.placeholderBlack
-        let path = Path.wire(start: start, end: end)
-        path.stroke(color, style: StrokeStyle(lineWidth: 4, lineCap: .round))
-            .background(path.stroke(Color.placeholderWhite.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
-            .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket, location: start))
-            .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket, location: end))
-            .opacity(active ? 0.33 : 1)
+        var body: some View {
+            model.presentation.content(for: _wire, configuration: configuration)
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket, location: configuration.start))
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket, location: configuration.end))
+                .opacity(configuration.active ? 0.33 : 1)
+        }
     }
 }
 

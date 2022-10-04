@@ -6,8 +6,8 @@ struct RadialPresentation: PresentationProtocol {
         NodeView(node: node)
     }
 
-    func content(for wire: Binding<MyWire>) -> some View {
-        EmptyView()
+    func content(for wire: Binding<MyWire>, configuration: WireConfiguration) -> some View {
+        WireView(wire: wire, configuration: configuration)
     }
 
     func content(for socket: Binding<MySocket>) -> some View {
@@ -53,10 +53,19 @@ struct RadialPresentation: PresentationProtocol {
             .contextMenu(for: $node)
         }
     }
+
+    struct WireView: View {
+        @Binding
+        var wire: MyWire
+
+        let configuration: WireConfiguration
+
+        var body: some View {
+            let path = Path.wire(start: configuration.start, end: configuration.end)
+            path.stroke(wire.color, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                .background(path.stroke(Color.white.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
+        }
+    }
+
 }
 
-extension View {
-    func offset(angle: Angle, radius: CGFloat) -> some View {
-        offset(x: cos(angle.radians) * radius, y: sin(angle.radians) * radius)
-    }
-}

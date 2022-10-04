@@ -38,10 +38,36 @@ public protocol PresentationProtocol {
     func content(for node: Binding<Node>) -> NodeContent
 
     // TODO: Not used yet.
-    func content(for wire: Binding<Wire>) -> WireContent
+    func content(for wire: Binding<Wire>, configuration: WireConfiguration) -> WireContent
 
     // TODO: Not used yet.
     func content(for socket: Binding<Socket>) -> SocketContent
 
     // TODO: content(for pin:)
 }
+
+public struct WireConfiguration {
+    public let active: Bool
+    public let start: CGPoint
+    public let end: CGPoint
+}
+
+
+/*
+ public protocol ButtonStyle {
+    associatedtype Body : View
+    @ViewBuilder func makeBody(configuration: Self.Configuration) -> Self.Body
+    typealias Configuration = ButtonStyleConfiguration
+}
+
+public struct ButtonStyleConfiguration {
+    /// A type-erased label of a button.
+    public struct Label : View {
+        public typealias Body = Never
+    }
+
+    public let role: ButtonRole?
+    public let label: ButtonStyleConfiguration.Label
+    public let isPressed: Bool
+}
+*/

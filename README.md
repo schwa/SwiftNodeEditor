@@ -31,13 +31,14 @@ See also [CAVEAT.md](CAVEAT.md).
 
 - [ ] Grep code for TODOs & fix 'em.
 - [ ] Add presentation for pins.
-- [ ] Add presentation for wires.
+- [X] Add presentation for wires.
 - [ ] Remove dependency on Everything (may need to put Everything's CoreGraphics in a new package?)
 - [ ] That GeometryReader makes it hard for wire/pin presentation to work without hard-coding size. (Would a layout help?)
 - [ ] Cannot debug in Xcode 14.0 beta 3 (TODO: file a feedback report).
 - [ ] Documentation.
 - [ ] Fix project structure - the app and demo package should be merged.
 - [ ] Simple demo.
+- [ ] Investigating use NodeStyle/WireStyle etc inside Presentation
 
 ### Nice to Have
 

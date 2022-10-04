@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 // TODO: use LolUID from Everything
 public struct LolID: Hashable {
@@ -46,5 +47,11 @@ extension UnsafeMutablePointer where Pointee == os_unfair_lock {
             unlock()
         }
         return try transaction()
+    }
+}
+
+extension View {
+    func offset(angle: Angle, radius: CGFloat) -> some View {
+        offset(x: cos(angle.radians) * radius, y: sin(angle.radians) * radius)
     }
 }
