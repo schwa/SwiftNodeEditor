@@ -27,7 +27,7 @@ struct BasicPresentation: PresentationProtocol {
                 Text(verbatim: node.name)
                 HStack {
                     ForEach(node.sockets) { socket in
-                        SocketView<MyNode, MyWire, MySocket>(node: _node, socket: socket)
+                        SocketView<BasicPresentation>(node: _node, socket: socket)
                         .contextMenu(for: .constant(socket), of: $node)
                     }
                     Button {

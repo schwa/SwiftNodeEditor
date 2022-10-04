@@ -21,17 +21,9 @@ public protocol SocketProtocol: Identifiable, Hashable {
 
 // MARK: -
 
-// TODO: ContextProtocol and PresentationProtocol _almost_ the same thing. Combine.
-public protocol ContextProtocol {
+public protocol PresentationProtocol {
     associatedtype Node: NodeProtocol where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket
-    associatedtype Socket: SocketProtocol
-    associatedtype Presentation: PresentationProtocol where Presentation.Node == Node
-}
-
-public protocol PresentationProtocol {
-    associatedtype Node: NodeProtocol
-    associatedtype Wire: WireProtocol
     associatedtype Socket: SocketProtocol
 
     // TODO: Use ViewModifiers here instead of Views?
@@ -45,11 +37,10 @@ public protocol PresentationProtocol {
     func content(for socket: Binding<Socket>) -> SocketContent
 }
 
-// TODO: Maybe Internal?
-public protocol ContextProvider {
-    associatedtype Context: ContextProtocol
-    typealias Node = Context.Node
-    typealias Wire = Context.Wire
-    typealias Socket = Context.Socket
-    typealias Presentation = Context.Presentation
+// TODO: Make Internal?
+public protocol _PresentationExpander {
+    associatedtype Presentation: PresentationProtocol
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
 }

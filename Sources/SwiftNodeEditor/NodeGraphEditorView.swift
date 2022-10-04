@@ -3,26 +3,25 @@
 import Everything
 import SwiftUI
 
-public struct NodeGraphEditorView <Node, Wire, Presentation>: View where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node {
-    typealias Context = _Context<Node, Wire, Node.Socket, Presentation>
+public struct NodeGraphEditorView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
 
-    let model: Model<Context>
+    let model: Model<Presentation>
 
     public init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
-        model = Model<Context>(nodes: nodes, wires: wires, selection: selection, presentation: presentation)
+        model = Model<Presentation>(nodes: nodes, wires: wires, selection: selection, presentation: presentation)
     }
 
     public var body: some View {
-        NodeGraphEditorView_<Context>()
+        NodeGraphEditorView_<Presentation>()
             .environmentObject(model)
     }
 }
 
 // MARK: -
 
-struct NodeGraphEditorView_ <Context>: View, ContextProvider where Context: ContextProtocol {
+struct NodeGraphEditorView_ <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @EnvironmentObject
-    var model: Model<Context>
+    var model: Model<Presentation>
 
     @State
     var activeWire: ActiveWire<Socket, Wire>?
@@ -36,12 +35,12 @@ struct NodeGraphEditorView_ <Context>: View, ContextProvider where Context: Cont
                 .onTapGesture {
                     model.selection = []
                 }
-            NodesView<Context>()
+            NodesView<Presentation>()
             socketGeometries.map { socketGeometries in
-                WiresView<Context>(wires: model.$wires, socketGeometries: socketGeometries)
+                WiresView<Presentation>(wires: model.$wires, socketGeometries: socketGeometries)
             }
             socketGeometries.map { socketGeometries in
-                activeWire.map { ActiveWireView<Context>(activeWire: $0, socketGeometries: socketGeometries) }
+                activeWire.map { ActiveWireView<Presentation>(activeWire: $0, socketGeometries: socketGeometries) }
             }
         }
         .coordinateSpace(name: "canvas")
@@ -70,9 +69,9 @@ struct NodeGraphEditorView_ <Context>: View, ContextProvider where Context: Cont
 
 // MARK: NodesView
 
-struct NodesView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct NodesView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @EnvironmentObject
-    var model: Model<Context>
+    var model: Model<Presentation>
 
     var body: some View {
         ForEach(model.nodes) { node in
@@ -89,7 +88,7 @@ struct NodesView <Context>: View, ContextProvider where Context: ContextProtocol
                     model.selection.remove(node.id)
                 }
             }
-            NodeInteractionView<Context>(node: nodeBinding, selected: selectedBinding)
+            NodeInteractionView<Presentation>(node: nodeBinding, selected: selectedBinding)
                 .position(x: node.position.x, y: node.position.y)
         }
     }
@@ -97,9 +96,9 @@ struct NodesView <Context>: View, ContextProvider where Context: ContextProtocol
 
 // MARK: -
 
-struct NodeInteractionView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct NodeInteractionView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @EnvironmentObject
-    var model: Model<Context>
+    var model: Model<Presentation>
 
     @Binding
     var node: Node
@@ -140,7 +139,7 @@ struct NodeInteractionView <Context>: View, ContextProvider where Context: Conte
 
 // MARK: -
 
-struct WiresView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct WiresView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @Binding
     var wires: [Wire]
 
@@ -151,7 +150,7 @@ struct WiresView <Context>: View, ContextProvider where Context: ContextProtocol
             if let sourceRect = socketGeometries[wire.sourceSocket], let destinationRect = socketGeometries[wire.destinationSocket] {
                 let index = wires.firstIndex(where: { wire.id == $0.id })!
                 let binding = Binding(get: { wires[index] }, set: { wires[index] = $0 })
-                WireView<Context>(wire: binding, start: sourceRect.midXMidY, end: destinationRect.midXMidY)
+                WireView<Presentation>(wire: binding, start: sourceRect.midXMidY, end: destinationRect.midXMidY)
             }
         }
     }
@@ -159,9 +158,9 @@ struct WiresView <Context>: View, ContextProvider where Context: ContextProtocol
 
 // MARK: -
 
-struct WireView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct WireView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @EnvironmentObject
-    var model: Model<Context>
+    var model: Model<Presentation>
 
     @Binding
     var wire: Wire
@@ -174,7 +173,7 @@ struct WireView <Context>: View, ContextProvider where Context: ContextProtocol 
 
     var body: some View {
         let active = activeWire?.existingWire == wire
-        WireChromeView<Context>(wire: _wire, active: active, start: start, end: end)
+        WireChromeView<Presentation>(wire: _wire, active: active, start: start, end: end)
         .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
             self.activeWire = activeWire
         }
@@ -188,7 +187,7 @@ struct WireView <Context>: View, ContextProvider where Context: ContextProtocol 
 
 // MARK: -
 
-struct WireChromeView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct WireChromeView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @Binding
     var wire: Wire
 
@@ -203,15 +202,15 @@ struct WireChromeView <Context>: View, ContextProvider where Context: ContextPro
         let path = Path.wire(start: start, end: end)
         path.stroke(color, style: StrokeStyle(lineWidth: 4, lineCap: .round))
             .background(path.stroke(Color.placeholderWhite.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
-            .overlay(PinView<Context>(wire: _wire, socket: wire.sourceSocket, location: start))
-            .overlay(PinView<Context>(wire: _wire, socket: wire.destinationSocket, location: end))
+            .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket, location: start))
+            .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket, location: end))
             .opacity(active ? 0.33 : 1)
     }
 }
 
 // MARK: -
 
-struct PinView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct PinView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @Binding
     var wire: Wire
 
@@ -221,7 +220,7 @@ struct PinView <Context>: View, ContextProvider where Context: ContextProtocol {
 
     var body: some View {
         let radius = 4
-        WireDragSource(contextType: Context.self, socket: socket, existingWire: wire) {
+        WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: wire) {
             Path { path in
                 path.addEllipse(in: CGRect(origin: location - CGPoint(x: radius, y: radius), size: CGSize(width: radius * 2, height: radius * 2)))
             }
@@ -232,13 +231,13 @@ struct PinView <Context>: View, ContextProvider where Context: ContextProtocol {
 
 // MARK: -
 
-struct WireDragSource <Context, Content>: View, ContextProvider where Context: ContextProtocol, Content: View {
+struct WireDragSource <Presentation, Content>: View, _PresentationExpander where Presentation: PresentationProtocol, Content: View {
     let socket: Socket
     let existingWire: Wire?
     let content: () -> Content
 
     @EnvironmentObject
-    var model: Model<Context>
+    var model: Model<Presentation>
 
     @Environment(\.onActiveWireDragEnded)
     var onActiveWireDragEnded
@@ -249,8 +248,8 @@ struct WireDragSource <Context, Content>: View, ContextProvider where Context: C
     @State
     var dragging = false
 
-    // TODO: contextType is a hack to allow us to create WireDragSources without having to specify both types.
-    init(contextType: Context.Type, socket: Socket, existingWire: Wire? = nil, content: @escaping () -> Content) {
+    // TODO: presentationType is a hack to allow us to create WireDragSources without having to specify both types.
+    init(presentationType: Presentation.Type, socket: Socket, existingWire: Wire? = nil, content: @escaping () -> Content) {
         self.socket = socket
         self.existingWire = existingWire
         self.content = content
@@ -280,12 +279,12 @@ struct WireDragSource <Context, Content>: View, ContextProvider where Context: C
     }
 }
 
-struct ActiveWireView <Context>: View, ContextProvider where Context: ContextProtocol {
+struct ActiveWireView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     let start: CGPoint
     let end: CGPoint
     let color: Color
 
-    init(activeWire: ActiveWire<Socket, Wire>, socketGeometries: [ActiveWireView<Context>.Socket: CGRect]) {
+    init(activeWire: ActiveWire<Socket, Wire>, socketGeometries: [ActiveWireView<Presentation>.Socket: CGRect]) {
         var color: Color {
             for (_, frame) in socketGeometries {
                 if frame.contains(activeWire.endLocation) {
@@ -315,7 +314,7 @@ struct ActiveWireView <Context>: View, ContextProvider where Context: ContextPro
 
 // MARK: -
 
-public struct SocketView <Node, Wire, Socket>: View where Node: NodeProtocol, Wire: WireProtocol, Socket == Node.Socket, Socket == Wire.Socket {
+public struct SocketView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
     @Binding
     var node: Node
 
@@ -326,10 +325,8 @@ public struct SocketView <Node, Wire, Socket>: View where Node: NodeProtocol, Wi
         self._node = node
     }
 
-    typealias Context = _Context<Node, Wire, Socket, EmptyPresentation<Node, Wire, Socket>>
-
     public var body: some View {
-        WireDragSource(contextType: Context.self, socket: socket) {
+        WireDragSource(presentationType: Presentation.self, socket: socket) {
             GeometryReader { geometry in
                 Circle().stroke(Color.placeholderBlack, lineWidth: 4)
                     .background(Circle().fill(Color.placeholderWhite))
@@ -441,26 +438,9 @@ public extension View {
 
 // MARK: -
 
-struct EmptyPresentation <Node, Wire, Socket>: PresentationProtocol where Node: NodeProtocol, Wire: WireProtocol, Socket: SocketProtocol {
-    func content(for node: Binding<Node>) -> some View {
-        EmptyView()
-    }
-    func content(for wire: Binding<Wire>) -> some View {
-        EmptyView()
-    }
-    func content(for socket: Binding<Socket>) -> some View {
-        EmptyView()
-    }
-}
-
-struct _Context <Node, Wire, Socket, Presentation>: ContextProtocol where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node, Node.Socket == Socket {
-    typealias Socket = Socket
-    typealias Presentation = Presentation
-}
-
 // MARK: -
 
-class Model <Context>: ObservableObject, ContextProvider where Context: ContextProtocol {
+class Model <Presentation>: ObservableObject, _PresentationExpander where Presentation: PresentationProtocol {
     @Binding
     var nodes: [Node]
 
@@ -482,7 +462,7 @@ class Model <Context>: ObservableObject, ContextProvider where Context: ContextP
 
 // MARK: ActiveWire
 
-// TODO: Ideally rely on Context here instead of Socket, Wire pair - but making this switch seems to break activeWirePreferenceKeys - need to dig in further when debugging working(!)
+// TODO: Ideally rely on Presentation here instead of Socket, Wire pair - but making this switch seems to break activeWirePreferenceKeys - need to dig in further when debugging working(!)
 struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
     let startLocation: CGPoint
     let endLocation: CGPoint

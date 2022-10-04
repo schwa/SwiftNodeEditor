@@ -40,7 +40,7 @@ struct RadialPresentation: PresentationProtocol {
                     .background(Circle().fill(Color.white))
                     .offset(angle: angle * 0, radius: radius)
                     ForEach(enumeration, id: \.0) { index, socket in
-                        SocketView<MyNode, MyWire, MySocket>(node: _node, socket: socket)
+                        SocketView<RadialPresentation>(node: _node, socket: socket)
                         .offset(angle: angle * Double(index + 1), radius: radius)
                         .contextMenu(for: .constant(socket), of: $node)
                     }
