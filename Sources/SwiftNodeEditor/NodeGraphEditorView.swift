@@ -233,6 +233,7 @@ internal struct WireView <Presentation>: View where Presentation: PresentationPr
 
 // MARK: -
 
+// TODO: (maybe) make public when content(for wire) is implemented.
 internal struct WireChromeView <Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
@@ -260,6 +261,7 @@ internal struct WireChromeView <Presentation>: View where Presentation: Presenta
 
 // MARK: -
 
+// TODO: (maybe) make public when content(for socket) is implemented.
 internal struct PinView <Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
@@ -270,6 +272,7 @@ internal struct PinView <Presentation>: View where Presentation: PresentationPro
 
     let socket: Socket
 
+    // TODO: instead of location rely on parent setting .offset correctly.
     let location: CGPoint
 
     var body: some View {
@@ -285,6 +288,7 @@ internal struct PinView <Presentation>: View where Presentation: PresentationPro
 
 // MARK: -
 
+// TODO: (maybe) make public when content(for socket) is implemented.
 internal struct WireDragSource <Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire

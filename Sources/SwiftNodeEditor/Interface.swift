@@ -25,14 +25,22 @@ public protocol PresentationProtocol {
     associatedtype Node: NodeProtocol where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket
     associatedtype Socket: SocketProtocol
+    // TODO: Pin: PinProtocol
 
     // TODO: Use ViewModifiers here instead of Views?
 
     associatedtype NodeContent: View
     associatedtype WireContent: View
     associatedtype SocketContent: View
+    // TODO: PinContent
 
     func content(for node: Binding<Node>) -> NodeContent
+
+    // TODO: Not used yet.
     func content(for wire: Binding<Wire>) -> WireContent
+
+    // TODO: Not used yet.
     func content(for socket: Binding<Socket>) -> SocketContent
+
+    // TODO: content(for pin:)
 }
