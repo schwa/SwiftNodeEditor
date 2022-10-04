@@ -1,11 +1,10 @@
 # SwiftNodeEditor
 
 A package of SwiftUI code for making node editors
+
 ## Screenshot
 
-<!-- ![Screenshot 1](Documentation/Screenshot%201.png) -->
 ![Screen Recording 1](Documentation/Screen%20Recording%201.gif)
-
 
 ## Usage
 
@@ -28,23 +27,32 @@ See also [CAVEAT.md](CAVEAT.md).
 
 ## TODO
 
-- [ ] Grep code for TODOs & fix 'em. (#high-priority)
+### High Priority
+
+- [ ] Grep code for TODOs & fix 'em.
+- [ ] Add presentation for pins.
+- [ ] Add presentation for wires.
+- [ ] Remove dependency on Everything (may need to put Everything's CoreGraphics in a new package?)
+- [ ] That GeometryReader makes it hard for wire/pin presentation to work without hard-coding size. (Would a layout help?)
+- [ ] Cannot debug in Xcode 14.0 beta 3 (TODO: file a feedback report).
+- [ ] Documentation.
+- [ ] Fix project structure - the app and demo package should be merged.
+- [ ] Simple demo.
+
+### Nice to Have
+
+- [ ] Turn README's TODO list into GitHub issues.
 - [ ] Make demo a document-based app with JSON serialization.
 - [ ] Add tools to layout nodes.
 - [ ] Add more streamlined HI for adding nodes.
 - [ ] Add better z-layer behaviour.
 - [ ] Unit tests for model-layer.
-- [ ] Documentation. (#high-priority)
-- [X] Get rid of weird underscore naming with generics.
-- [ ] Add presentation for pins. (#high-priority)
-- [ ] Add presentation for wires. (#high-priority)
 - [ ] Make demo labels editable.
 - [ ] Labels on wires.
-- [ ] Remove dependency on Everything. (#high-priority)
 - [ ] Marquee-based selection.
 - [ ] Keyboard shortcuts.
 - [ ] The Demo app needs a List representation.
 - [ ] Selector mechanism for sockets and wires (can I connect this wire to this socket?)
 - [ ] Many-to-many sockets
 - [ ] Use OrderedSet (from swift-collections) in correct places.
-- [ ] That GeometryReader makes it hard for wire/pin presentation to work without hard-coding size. (Would a layout help?)
+- [X] Get rid of weird underscore naming with generics.
