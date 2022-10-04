@@ -5,6 +5,7 @@ import SwiftUI
 
 public struct NodeGraphEditorView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
 
+    // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
 
     public init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
