@@ -1,7 +1,7 @@
 import SwiftNodeEditor
 import SwiftUI
 
-struct RadialPresentation:   {
+struct RadialPresentation: PresentationProtocol {
     func content(for node: Binding<MyNode>) -> some View {
         NodeView(node: node)
     }

@@ -5,12 +5,12 @@ import SwiftUI
 // swiftlint:disable generic_type_name
 // swiftlint:disable file_length
 
-public struct NodeGraphEditorView <Node_, Wire_, Presentation_>: View where Wire_: WireProtocol, Node_.Socket == Wire_.Socket, Presentation_: PresentationProtocol, Presentation_.Node == Node_ {
-    typealias Context = _Context<Node_, Wire_, Node_.Socket, Presentation_>
+public struct NodeGraphEditorView <Node, Wire, Presentation>: View where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node {
+    typealias Context = _Context<Node, Wire, Node.Socket, Presentation>
 
     let model: Model<Context>
 
-    public init(nodes: Binding<[Node_]>, wires: Binding<[Wire_]>, selection: Binding<Set<Node_.ID>>, presentation: Presentation_) {
+    public init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
         model = Model<Context>(nodes: nodes, wires: wires, selection: selection, presentation: presentation)
     }
 
@@ -479,11 +479,10 @@ struct EmptyPresentation <Node, Wire, Socket>: PresentationProtocol where Node: 
     }
 }
 
-struct _Context <Node_, Wire_, Socket_, Presentation_>: ContextProtocol where Wire_: WireProtocol, Node_.Socket == Wire_.Socket, Presentation_: PresentationProtocol, Presentation_.Node == Node_, Node_.Socket == Socket_ {
-    typealias Node = Node_
-    typealias Wire = Wire_
-    typealias Socket = Socket_
-    typealias Presentation = Presentation_
+struct _Context <Node, Wire, Socket, Presentation>: ContextProtocol where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node, Node.Socket == Socket {
+    typealias Socket = Socket
+    typealias Presentation = Presentation
+    
 }
 
 // MARK: -
