@@ -311,7 +311,7 @@ internal struct WireDragSource <Presentation, Content>: View where Presentation:
     var dragging = false
 
     // TODO: presentationType is a hack to allow us to create WireDragSources without having to specify both types.
-    init(presentationType: Presentation.Type, socket: Socket, existingWire: Wire? = nil, content: @escaping () -> Content) {
+    init(presentationType: Presentation.Type, socket: Socket, existingWire: Wire?, content: @escaping () -> Content) {
         self.socket = socket
         self.existingWire = existingWire
         self.content = content
@@ -396,7 +396,7 @@ public struct SocketView <Presentation>: View where Presentation: PresentationPr
     }
 
     public var body: some View {
-        WireDragSource(presentationType: Presentation.self, socket: socket) {
+        WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: nil) {
             GeometryReader { geometry in
                 Circle().stroke(Color.placeholderBlack, lineWidth: 4)
                     .background(Circle().fill(Color.placeholderWhite))
