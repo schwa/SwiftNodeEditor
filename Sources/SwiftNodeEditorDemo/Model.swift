@@ -25,7 +25,7 @@ public struct MyWire: WireProtocol {
     public let destinationSocket: MySocket
 
     public init(sourceSocket: MySocket, destinationSocket: MySocket) {
-        self.color = .black
+        color = .black
         self.sourceSocket = sourceSocket
         self.destinationSocket = destinationSocket
     }

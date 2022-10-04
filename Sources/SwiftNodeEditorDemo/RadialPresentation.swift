@@ -5,9 +5,11 @@ struct RadialPresentation: PresentationProtocol {
     func content(for node: Binding<MyNode>) -> some View {
         NodeView(node: node)
     }
+
     func content(for wire: Binding<MyWire>) -> some View {
         EmptyView()
     }
+
     func content(for socket: Binding<MySocket>) -> some View {
         EmptyView()
     }
@@ -41,8 +43,8 @@ struct RadialPresentation: PresentationProtocol {
                     .offset(angle: angle * 0, radius: radius)
                     ForEach(enumeration, id: \.0) { index, socket in
                         SocketView<RadialPresentation>(node: _node, socket: socket)
-                        .offset(angle: angle * Double(index + 1), radius: radius)
-                        .contextMenu(for: .constant(socket), of: $node)
+                            .offset(angle: angle * Double(index + 1), radius: radius)
+                            .contextMenu(for: .constant(socket), of: $node)
                     }
                 }
             }

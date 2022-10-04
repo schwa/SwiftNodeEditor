@@ -1,5 +1,5 @@
-import XCTest
 @testable import SwiftNodeEditor
+import XCTest
 
 final class SwiftNodeEditorTests: XCTestCase {
     func testExample() throws {

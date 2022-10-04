@@ -3,8 +3,7 @@
 import Everything
 import SwiftUI
 
-public struct NodeGraphEditorView <Presentation>: View where Presentation: PresentationProtocol {
-
+public struct NodeGraphEditorView<Presentation>: View where Presentation: PresentationProtocol {
     // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
 
@@ -18,7 +17,6 @@ public struct NodeGraphEditorView <Presentation>: View where Presentation: Prese
     }
 
     struct NodeGraphEditorView_: View {
-
         typealias Node = Presentation.Node
         typealias Wire = Presentation.Wire
         typealias Socket = Presentation.Socket
@@ -73,7 +71,7 @@ public struct NodeGraphEditorView <Presentation>: View where Presentation: Prese
 
 // MARK: Model
 
-internal class Model <Presentation>: ObservableObject where Presentation: PresentationProtocol {
+internal class Model<Presentation>: ObservableObject where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -90,16 +88,16 @@ internal class Model <Presentation>: ObservableObject where Presentation: Presen
     let presentation: Presentation
 
     init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
-        self._nodes = nodes
-        self._wires = wires
-        self._selection = selection
+        _nodes = nodes
+        _wires = wires
+        _selection = selection
         self.presentation = presentation
     }
 }
 
 // MARK: NodesView
 
-internal struct NodesView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct NodesView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -130,7 +128,7 @@ internal struct NodesView <Presentation>: View where Presentation: PresentationP
 
 // MARK: -
 
-internal struct NodeInteractionView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct NodeInteractionView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -177,7 +175,7 @@ internal struct NodeInteractionView <Presentation>: View where Presentation: Pre
 
 // MARK: -
 
-internal struct WiresView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct WiresView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -200,7 +198,7 @@ internal struct WiresView <Presentation>: View where Presentation: PresentationP
 
 // MARK: -
 
-internal struct WireView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct WireView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -215,26 +213,26 @@ internal struct WireView <Presentation>: View where Presentation: PresentationPr
     let end: CGPoint
 
     @State
-    var activeWire: ActiveWire <Socket, Wire>?
+    var activeWire: ActiveWire<Socket, Wire>?
 
     var body: some View {
         let active = activeWire?.existingWire == wire
         WireChromeView<Presentation>(wire: _wire, active: active, start: start, end: end)
-        .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
-            self.activeWire = activeWire
-        }
-        .contextMenu {
-            Button("Delete") {
-                model.wires.removeAll(where: { wire.id == $0.id })
+            .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
+                self.activeWire = activeWire
             }
-        }
+            .contextMenu {
+                Button("Delete") {
+                    model.wires.removeAll(where: { wire.id == $0.id })
+                }
+            }
     }
 }
 
 // MARK: -
 
 // TODO: (maybe) make public when content(for wire) is implemented.
-internal struct WireChromeView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct WireChromeView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -242,7 +240,7 @@ internal struct WireChromeView <Presentation>: View where Presentation: Presenta
     @Binding
     var wire: Wire
 
-// TODO: bundle into "WireState" and move into presentation
+    // TODO: bundle into "WireState" and move into presentation
 
     let active: Bool
     let start: CGPoint
@@ -262,7 +260,7 @@ internal struct WireChromeView <Presentation>: View where Presentation: Presenta
 // MARK: -
 
 // TODO: (maybe) make public when content(for socket) is implemented.
-internal struct PinView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct PinView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -289,7 +287,7 @@ internal struct PinView <Presentation>: View where Presentation: PresentationPro
 // MARK: -
 
 // TODO: (maybe) make public when content(for socket) is implemented.
-internal struct WireDragSource <Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
+internal struct WireDragSource<Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -305,7 +303,7 @@ internal struct WireDragSource <Presentation, Content>: View where Presentation:
     var onActiveWireDragEnded
 
     @State
-    var activeWire: ActiveWire <Socket, Wire>?
+    var activeWire: ActiveWire<Socket, Wire>?
 
     @State
     var dragging = false
@@ -341,7 +339,7 @@ internal struct WireDragSource <Presentation, Content>: View where Presentation:
     }
 }
 
-internal struct ActiveWireView <Presentation>: View where Presentation: PresentationProtocol {
+internal struct ActiveWireView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
@@ -380,8 +378,7 @@ internal struct ActiveWireView <Presentation>: View where Presentation: Presenta
 
 // MARK: -
 
-public struct SocketView <Presentation>: View where Presentation: PresentationProtocol {
-
+public struct SocketView<Presentation>: View where Presentation: PresentationProtocol {
     public typealias Node = Presentation.Node
     public typealias Socket = Presentation.Socket
 
@@ -392,7 +389,7 @@ public struct SocketView <Presentation>: View where Presentation: PresentationPr
 
     public init(node: Binding<Node>, socket: Socket) {
         self.socket = socket
-        self._node = node
+        _node = node
     }
 
     public var body: some View {
@@ -430,11 +427,11 @@ internal struct AnimatedWire: View {
 
 // MARK: SocketGeometriesPreferenceKey
 
-internal struct SocketGeometriesPreferenceKey <Socket>: PreferenceKey where Socket: SocketProtocol {
+internal struct SocketGeometriesPreferenceKey<Socket>: PreferenceKey where Socket: SocketProtocol {
     typealias Value = [Socket: CGRect]
 
     static var defaultValue: Value {
-        return [:]
+        [:]
     }
 
     static func reduce(value: inout Value, nextValue: () -> Value) {
@@ -509,7 +506,7 @@ public extension View {
 // MARK: ActiveWire
 
 // TODO: Ideally rely on Presentation here instead of Socket, Wire pair - but making this switch seems to break activeWirePreferenceKeys - need to dig in further when debugging working(!)
-struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
+struct ActiveWire<Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
     let startLocation: CGPoint
     let endLocation: CGPoint
     let startSocket: Socket
@@ -525,9 +522,9 @@ struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socke
 
 // MARK: ActiveWirePreferenceKey
 
-struct ActiveWirePreferenceKey <Socket, Wire>: PreferenceKey where Wire: WireProtocol, Wire.Socket == Socket {
+struct ActiveWirePreferenceKey<Socket, Wire>: PreferenceKey where Wire: WireProtocol, Wire.Socket == Socket {
     static var defaultValue: ActiveWire<Socket, Wire>? {
-        return nil
+        nil
     }
 
     static func reduce(value: inout ActiveWire<Socket, Wire>?, nextValue: () -> ActiveWire<Socket, Wire>?) {

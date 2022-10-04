@@ -18,45 +18,46 @@ public struct NodeGraphEditorDemoView: View {
 
     public var body: some View {
         #if os(macOS)
-        return HSplitView {
-            editorView
-            .frame(minWidth: 320, minHeight: 240)
-            .layoutPriority(1)
+            return HSplitView {
+                editorView
+                    .frame(minWidth: 320, minHeight: 240)
+                    .layoutPriority(1)
 
-            detailView
-            .ignoresSafeArea(.all, edges: .top)
-        }
-        .toolbar {
-            Button {
-                model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100))) }
-            label: {
-                Image(systemName: "plus")
+                detailView
+                    .ignoresSafeArea(.all, edges: .top)
             }
-            Button {
-                model.nodes = model.nodes.map {
-                    var node = $0
-                    node.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
-                    return node
+            .toolbar {
+                Button {
+                    model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100)))
                 }
-                model.wires = model.wires.map {
-                    var wire = $0
-                    wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
-                    return wire
-                }
-            }
             label: {
-                Image(systemName: "paintpalette")
+                    Image(systemName: "plus")
+                }
+                Button {
+                    model.nodes = model.nodes.map {
+                        var node = $0
+                        node.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
+                        return node
+                    }
+                    model.wires = model.wires.map {
+                        var wire = $0
+                        wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
+                        return wire
+                    }
+                }
+            label: {
+                    Image(systemName: "paintpalette")
+                }
+                Picker("Mode", selection: $presentationMode) {
+                    Text("Basic").tag(PresentationMode.basic)
+                    Text("Radial").tag(PresentationMode.radial)
+                }
+                .pickerStyle(MenuPickerStyle())
             }
-            Picker("Mode", selection: $presentationMode) {
-                Text("Basic").tag(PresentationMode.basic)
-                Text("Radial").tag(PresentationMode.radial)
-            }
-            .pickerStyle(MenuPickerStyle())
-        }
-        .environmentObject(model)
+            .environmentObject(model)
         #elseif os(iOS)
-        editorView()
-        .environmentObject(model)
+            editorView()
+                .environmentObject(model)
         #endif
     }
 

@@ -1,6 +1,6 @@
 import Foundation
 
-// TODO use LolUID from Everything
+// TODO: use LolUID from Everything
 public struct LolID: Hashable {
     var rawValue: Int
 
@@ -20,7 +20,7 @@ public struct LolID: Hashable {
 
 extension LolID: CustomStringConvertible {
     public var description: String {
-        return "\(rawValue)"
+        "\(rawValue)"
     }
 }
 
@@ -40,7 +40,7 @@ extension UnsafeMutablePointer where Pointee == os_unfair_lock {
         os_unfair_lock_unlock(self)
     }
 
-    func withLock <R>(_ transaction: () throws -> R) rethrows -> R {
+    func withLock<R>(_ transaction: () throws -> R) rethrows -> R {
         lock()
         defer {
             unlock()

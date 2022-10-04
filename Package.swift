@@ -21,7 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-         .package(url: "https://github.com/schwa/Everything", branch: "main"),
+        .package(url: "https://github.com/schwa/Everything", branch: "main"),
     ],
     targets: [
         .target(

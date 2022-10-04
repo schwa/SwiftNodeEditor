@@ -5,9 +5,11 @@ struct BasicPresentation: PresentationProtocol {
     func content(for node: Binding<MyNode>) -> some View {
         NodeView(node: node)
     }
+
     func content(for wire: Binding<MyWire>) -> some View {
         EmptyView()
     }
+
     func content(for socket: Binding<MySocket>) -> some View {
         EmptyView()
     }
@@ -28,7 +30,7 @@ struct BasicPresentation: PresentationProtocol {
                 HStack {
                     ForEach(node.sockets) { socket in
                         SocketView<BasicPresentation>(node: _node, socket: socket)
-                        .contextMenu(for: .constant(socket), of: $node)
+                            .contextMenu(for: .constant(socket), of: $node)
                     }
                     Button {
                         node.sockets.append(MySocket())
