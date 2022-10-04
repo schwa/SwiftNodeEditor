@@ -3,7 +3,6 @@ import SwiftUI
 
 public protocol NodeProtocol: Identifiable {
     associatedtype Socket: SocketProtocol
-    var name: String { get set }
     var position: CGPoint { get set }
     var sockets: [Socket] { get set }
 }

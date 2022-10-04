@@ -249,7 +249,7 @@ struct WireDragSource <Context, Content>: View, ContextProvider where Context: C
     @State
     var dragging = false
 
-    // TODO: contextType is a hack
+    // TODO: contextType is a hack to allow us to create WireDragSources without having to specify both types.
     init(contextType: Context.Type, socket: Socket, existingWire: Wire? = nil, content: @escaping () -> Content) {
         self.socket = socket
         self.existingWire = existingWire
@@ -361,21 +361,8 @@ struct AnimatedWire: View {
     }
 }
 
-// MARK: ActiveWirePreferenceKey
-
-struct ActiveWirePreferenceKey <Socket, Wire>: PreferenceKey where Wire: WireProtocol, Wire.Socket == Socket {
-    static var defaultValue: ActiveWire<Socket, Wire>? {
-        return nil
-    }
-
-    static func reduce(value: inout ActiveWire<Socket, Wire>?, nextValue: () -> ActiveWire<Socket, Wire>?) {
-        value = nextValue() ?? value
-    }
-}
-
 // MARK: SocketGeometriesPreferenceKey
 
-// TODO: Consider using AnyHashable instead of Socket?
 struct SocketGeometriesPreferenceKey <Socket>: PreferenceKey where Socket: SocketProtocol {
     typealias Value = [Socket: CGRect]
 
@@ -493,6 +480,8 @@ class Model <Context>: ObservableObject, ContextProvider where Context: ContextP
     }
 }
 
+// MARK: ActiveWire
+
 struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socket == Socket {
     let startLocation: CGPoint
     let endLocation: CGPoint
@@ -504,5 +493,17 @@ struct ActiveWire <Socket, Wire>: Equatable where Wire: WireProtocol, Wire.Socke
         self.endLocation = endLocation
         self.startSocket = startSocket
         self.existingWire = existingWire
+    }
+}
+
+// MARK: ActiveWirePreferenceKey
+
+struct ActiveWirePreferenceKey <Socket, Wire>: PreferenceKey where Wire: WireProtocol, Wire.Socket == Socket {
+    static var defaultValue: ActiveWire<Socket, Wire>? {
+        return nil
+    }
+
+    static func reduce(value: inout ActiveWire<Socket, Wire>?, nextValue: () -> ActiveWire<Socket, Wire>?) {
+        value = nextValue() ?? value
     }
 }
