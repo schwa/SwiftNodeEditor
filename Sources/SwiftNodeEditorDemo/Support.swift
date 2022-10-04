@@ -1,12 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Jonathan Wight on 10/3/22.
-//
-
 import Foundation
-
 
 // TODO use LolUID from Everything
 public struct LolID: Hashable {

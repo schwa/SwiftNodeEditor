@@ -43,9 +43,7 @@ public protocol PresentationProtocol {
     func content(for node: Binding<Node>) -> NodeContent
     func content(for wire: Binding<Wire>) -> WireContent
     func content(for socket: Binding<Socket>) -> SocketContent
-
 }
-
 
 // TODO: Maybe Internal?
 public protocol ContextProvider {

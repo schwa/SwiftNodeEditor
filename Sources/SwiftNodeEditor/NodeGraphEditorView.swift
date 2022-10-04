@@ -1,9 +1,7 @@
+// swiftlint:disable file_length
+
 import Everything
 import SwiftUI
-
-// swiftlint:disable type_name
-// swiftlint:disable generic_type_name
-// swiftlint:disable file_length
 
 public struct NodeGraphEditorView <Node, Wire, Presentation>: View where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node {
     typealias Context = _Context<Node, Wire, Node.Socket, Presentation>
@@ -474,7 +472,6 @@ struct EmptyPresentation <Node, Wire, Socket>: PresentationProtocol where Node: 
 struct _Context <Node, Wire, Socket, Presentation>: ContextProtocol where Wire: WireProtocol, Node.Socket == Wire.Socket, Presentation: PresentationProtocol, Presentation.Node == Node, Node.Socket == Socket {
     typealias Socket = Socket
     typealias Presentation = Presentation
-    
 }
 
 // MARK: -
