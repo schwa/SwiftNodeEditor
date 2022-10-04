@@ -197,6 +197,8 @@ struct WireChromeView <Context>: View, ContextProvider where Context: ContextPro
     @Binding
     var wire: Wire
 
+// TODO: bundle into "WireState" and move into presentation
+
     let active: Bool
     let start: CGPoint
     let end: CGPoint

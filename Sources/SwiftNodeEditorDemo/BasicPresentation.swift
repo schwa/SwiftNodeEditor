@@ -3,13 +3,13 @@ import SwiftUI
 
 struct BasicPresentation: PresentationProtocol {
     func content(for node: Binding<MyNode>) -> some View {
-        NodeChromeView(node: node)
+        NodeView(node: node)
     }
     func content(for wire: Binding<MyWire>) -> some View {
         EmptyView()
     }
 
-    struct NodeChromeView: View {
+    struct NodeView: View {
         @Binding
         var node: MyNode
 
