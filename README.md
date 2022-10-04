@@ -39,6 +39,7 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Fix project structure - the app and demo package should be merged.
 - [ ] Simple demo.
 - [ ] Investigating use NodeStyle/WireStyle etc inside Presentation
+- [ ] It's silly that both pins and sockets need to register the same drag gesture - make one gesture and raise it above.
 
 ### Nice to Have
 
@@ -56,4 +57,5 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Selector mechanism for sockets and wires (can I connect this wire to this socket?)
 - [ ] Many-to-many sockets
 - [ ] Use OrderedSet (from swift-collections) in correct places.
+- [ ] Use more from macOS13/iOS16 in this (layouts, backgroundStyle, etc?)
 - [X] Get rid of weird underscore naming with generics.
