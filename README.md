@@ -39,3 +39,6 @@ See [CAVEAT.md](CAVEAT.md).
 - [ ] Make demo labels editable.
 - [ ] Labels on wires.
 - [ ] Remove dependency on Everything.
+- [ ] Marquee based selection.
+- [ ] Keyboard shortcuts.
+- [ ] Demo app needs a List representation.
