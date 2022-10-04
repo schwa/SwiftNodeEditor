@@ -4,10 +4,11 @@ import SwiftUI
 public protocol NodeProtocol: Identifiable {
     associatedtype Socket: SocketProtocol
     var position: CGPoint { get set }
+    // TODO: Can add same socket twice. Need an OrderedSet
     var sockets: [Socket] { get set }
 }
 
-// TODO: You cannot go from Node -> Socket -> Wire -> Socket -> Node. This is an issue.
+// TODO: You cannot go from Sockets to other types. This could be an issue for implementors - but there's no reason implementors can't provide this themselves.
 public protocol WireProtocol: Identifiable, Equatable {
     associatedtype Socket: SocketProtocol
     var sourceSocket: Socket { get }

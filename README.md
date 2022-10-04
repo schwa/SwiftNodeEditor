@@ -22,27 +22,29 @@ See [LICENSE.md](LICENSE.md).
 
 ## Caveats
 
-Repository is (currently) undergoing active development and API surface area is not yet stable. 
+This project is (currently) undergoing active development and its API surface area is not yet stable.
 
 See also [CAVEAT.md](CAVEAT.md).
 
 ## TODO
 
-- [ ] Grep code for TODOs & fix 'em.
+- [ ] Grep code for TODOs & fix 'em. (#high-priority)
 - [ ] Make demo a document-based app with JSON serialization.
 - [ ] Add tools to layout nodes.
 - [ ] Add more streamlined HI for adding nodes.
 - [ ] Add better z-layer behaviour.
 - [ ] Unit tests for model-layer.
-- [ ] Documentation.
-- [ ] Get rid of weird underscore naming with generics.
-- [ ] Add presentation for pins.
-- [ ] Add presentation for wires(?).
+- [ ] Documentation. (#high-priority)
+- [X] Get rid of weird underscore naming with generics.
+- [ ] Add presentation for pins. (#high-priority)
+- [ ] Add presentation for wires. (#high-priority)
 - [ ] Make demo labels editable.
 - [ ] Labels on wires.
-- [ ] Remove dependency on Everything.
-- [ ] Marquee based selection.
+- [ ] Remove dependency on Everything. (#high-priority)
+- [ ] Marquee-based selection.
 - [ ] Keyboard shortcuts.
-- [ ] Demo app needs a List representation.
-- [ ] Selector mechanism for sockets and wires
-- [ ] Many to many sockets
+- [ ] The Demo app needs a List representation.
+- [ ] Selector mechanism for sockets and wires (can I connect this wire to this socket?)
+- [ ] Many-to-many sockets
+- [ ] Use OrderedSet (from swift-collections) in correct places.
+- [ ] That GeometryReader makes it hard for wire/pin presentation to work without hard-coding size. (Would a layout help?)
