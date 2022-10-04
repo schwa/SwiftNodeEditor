@@ -372,7 +372,7 @@ internal struct ActiveWireView<Presentation>: View where Presentation: Presentat
     }
 
     var body: some View {
-        AnimatedWire(start: start, end: end, color: color)
+        AnimatedWire(start: start, end: end, foreground: color)
     }
 }
 
@@ -401,27 +401,6 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
             }
             .frame(width: 16, height: 16)
         }
-    }
-}
-
-// MARK: -
-
-internal struct AnimatedWire: View {
-    let start: CGPoint
-    let end: CGPoint
-    @State
-    var phase: CGFloat = 0
-    let color: Color
-
-    var body: some View {
-        let path = Path.wire(start: start, end: end)
-        path.stroke(color, style: StrokeStyle(lineWidth: 4, lineCap: .round, dash: [10], dashPhase: phase))
-            .onAppear {
-                withAnimation(.linear.repeatForever(autoreverses: false)) {
-                    phase -= 20
-                }
-            }
-            .background(path.stroke(Color.placeholderWhite.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
     }
 }
 
