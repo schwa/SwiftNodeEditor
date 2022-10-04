@@ -1,6 +1,6 @@
 # SwiftNodeEditor
 
-A package of SwiftUI code for making mode editors
+A package of SwiftUI code for making node editors
 ## Screenshot
 
 <!-- ![Screenshot 1](Documentation/Screenshot%201.png) -->
