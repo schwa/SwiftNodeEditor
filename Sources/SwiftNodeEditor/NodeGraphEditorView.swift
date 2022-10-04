@@ -3,12 +3,12 @@
 import Everything
 import SwiftUI
 
-public struct NodeGraphEditorView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+public struct NodeGraphEditorView <Presentation>: View where Presentation: PresentationProtocol {
 
     // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
 
-    public init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
+    public init(nodes: Binding<[Presentation.Node]>, wires: Binding<[Presentation.Wire]>, selection: Binding<Set<Presentation.Node.ID>>, presentation: Presentation) {
         model = Model<Presentation>(nodes: nodes, wires: wires, selection: selection, presentation: presentation)
     }
 
@@ -17,7 +17,7 @@ public struct NodeGraphEditorView <Presentation>: View, _PresentationExpander wh
             .environmentObject(model)
     }
 
-    struct NodeGraphEditorView_: View {
+    struct NodeGraphEditorView_: View, _PresentationExpander {
         @EnvironmentObject
         var model: Model<Presentation>
 
@@ -335,7 +335,11 @@ internal struct ActiveWireView <Presentation>: View, _PresentationExpander where
 
 // MARK: -
 
-public struct SocketView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+public struct SocketView <Presentation>: View where Presentation: PresentationProtocol {
+
+    public typealias Node = Presentation.Node
+    public typealias Socket = Presentation.Socket
+
     @Binding
     var node: Node
 

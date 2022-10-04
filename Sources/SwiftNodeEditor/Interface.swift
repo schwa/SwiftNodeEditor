@@ -38,7 +38,7 @@ public protocol PresentationProtocol {
 }
 
 // TODO: Make Internal?
-public protocol _PresentationExpander {
+internal protocol _PresentationExpander {
     associatedtype Presentation: PresentationProtocol
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
