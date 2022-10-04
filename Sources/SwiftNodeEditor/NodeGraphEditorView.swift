@@ -52,15 +52,15 @@ struct NodeGraphEditorView_ <Context>: View, ContextProvider where Context: Cont
             self.socketGeometries = socketGeometries
         }
         .onActiveWireDragEnded {
-            guard let activeWire = activeWire else {
+            guard let activeWire else {
                 fatalError("No active wire")
             }
-            guard let socketGeometries = socketGeometries else {
+            guard let socketGeometries else {
                 fatalError("No socket geometries")
             }
             for (socket, frame) in socketGeometries {
                 if frame.contains(activeWire.endLocation) {
-                    self.model.wires.append(Wire(sourceSocket: activeWire.startSocket, destinationSocket: socket))
+                    model.wires.append(Wire(sourceSocket: activeWire.startSocket, destinationSocket: socket))
                     return
                 }
             }
@@ -124,7 +124,7 @@ struct NodeInteractionView <Context>: View, ContextProvider where Context: Conte
     }
 
     func dragGesture() -> some Gesture {
-        return DragGesture(coordinateSpace: .named("canvas"))
+        DragGesture(coordinateSpace: .named("canvas"))
             .onChanged { value in
                 if dragging == false {
                     dragOffset = value.location - node.position
@@ -175,17 +175,14 @@ struct WireView <Context>: View, ContextProvider where Context: ContextProtocol 
     var body: some View {
         let active = activeWire?.existingWire == wire
         WireChromeView<Context>(wire: _wire, active: active, start: start, end: end)
-            .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
-                self.activeWire = activeWire
+        .onPreferenceChange(ActiveWirePreferenceKey<Socket, Wire>.self) { activeWire in
+            self.activeWire = activeWire
+        }
+        .contextMenu {
+            Button("Delete") {
+                model.wires.removeAll(where: { wire.id == $0.id })
             }
-            .contextMenu {
-                Button("Delete") {
-                    model.wires.removeAll(where: { wire.id == $0.id })
-                }
-                //            Button("Random Color") {
-                //                wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
-                //            }
-            }
+        }
     }
 }
 
@@ -266,7 +263,7 @@ struct WireDragSource <Context, Content>: View, ContextProvider where Context: C
     }
 
     func dragGesture() -> some Gesture {
-        return DragGesture(coordinateSpace: .named("canvas"))
+        DragGesture(coordinateSpace: .named("canvas"))
             .onChanged { value in
                 dragging = true
 
@@ -307,12 +304,12 @@ struct ActiveWireView <Context>: View, ContextProvider where Context: ContextPro
             }
             return nil
         }
-        self.start = socketGeometries[activeWire.startSocket]!.midXMidY
-        self.end = destinationSocket.map { socketGeometries[$0]! }.map(\.midXMidY) ?? activeWire.endLocation
+        start = socketGeometries[activeWire.startSocket]!.midXMidY
+        end = destinationSocket.map { socketGeometries[$0]! }.map(\.midXMidY) ?? activeWire.endLocation
     }
 
     var body: some View {
-        return AnimatedWire(start: start, end: end, color: color)
+        AnimatedWire(start: start, end: end, color: color)
     }
 }
 
@@ -451,7 +448,7 @@ public struct NodeSelectedModifier: ViewModifier {
 
 public extension View {
     func nodeSelected(value: Bool) -> some View {
-        self.modifier(NodeSelectedModifier(value: value))
+        modifier(NodeSelectedModifier(value: value))
     }
 }
 
