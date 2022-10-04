@@ -17,7 +17,12 @@ public struct NodeGraphEditorView <Presentation>: View where Presentation: Prese
             .environmentObject(model)
     }
 
-    struct NodeGraphEditorView_: View, _PresentationExpander {
+    struct NodeGraphEditorView_: View {
+
+        typealias Node = Presentation.Node
+        typealias Wire = Presentation.Wire
+        typealias Socket = Presentation.Socket
+
         @EnvironmentObject
         var model: Model<Presentation>
 
@@ -68,7 +73,11 @@ public struct NodeGraphEditorView <Presentation>: View where Presentation: Prese
 
 // MARK: Model
 
-internal class Model <Presentation>: ObservableObject, _PresentationExpander where Presentation: PresentationProtocol {
+internal class Model <Presentation>: ObservableObject where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @Binding
     var nodes: [Node]
 
@@ -90,7 +99,11 @@ internal class Model <Presentation>: ObservableObject, _PresentationExpander whe
 
 // MARK: NodesView
 
-internal struct NodesView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct NodesView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @EnvironmentObject
     var model: Model<Presentation>
 
@@ -117,7 +130,11 @@ internal struct NodesView <Presentation>: View, _PresentationExpander where Pres
 
 // MARK: -
 
-internal struct NodeInteractionView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct NodeInteractionView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @EnvironmentObject
     var model: Model<Presentation>
 
@@ -160,7 +177,11 @@ internal struct NodeInteractionView <Presentation>: View, _PresentationExpander 
 
 // MARK: -
 
-internal struct WiresView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct WiresView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @Binding
     var wires: [Wire]
 
@@ -179,7 +200,11 @@ internal struct WiresView <Presentation>: View, _PresentationExpander where Pres
 
 // MARK: -
 
-internal struct WireView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct WireView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @EnvironmentObject
     var model: Model<Presentation>
 
@@ -208,7 +233,11 @@ internal struct WireView <Presentation>: View, _PresentationExpander where Prese
 
 // MARK: -
 
-internal struct WireChromeView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct WireChromeView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @Binding
     var wire: Wire
 
@@ -231,7 +260,11 @@ internal struct WireChromeView <Presentation>: View, _PresentationExpander where
 
 // MARK: -
 
-internal struct PinView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct PinView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     @Binding
     var wire: Wire
 
@@ -252,7 +285,11 @@ internal struct PinView <Presentation>: View, _PresentationExpander where Presen
 
 // MARK: -
 
-internal struct WireDragSource <Presentation, Content>: View, _PresentationExpander where Presentation: PresentationProtocol, Content: View {
+internal struct WireDragSource <Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     let socket: Socket
     let existingWire: Wire?
     let content: () -> Content
@@ -300,7 +337,11 @@ internal struct WireDragSource <Presentation, Content>: View, _PresentationExpan
     }
 }
 
-internal struct ActiveWireView <Presentation>: View, _PresentationExpander where Presentation: PresentationProtocol {
+internal struct ActiveWireView <Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
     let start: CGPoint
     let end: CGPoint
     let color: Color

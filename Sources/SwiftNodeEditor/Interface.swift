@@ -36,11 +36,3 @@ public protocol PresentationProtocol {
     func content(for wire: Binding<Wire>) -> WireContent
     func content(for socket: Binding<Socket>) -> SocketContent
 }
-
-// TODO: Make Internal?
-internal protocol _PresentationExpander {
-    associatedtype Presentation: PresentationProtocol
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
-}
