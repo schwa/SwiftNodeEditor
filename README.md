@@ -10,7 +10,7 @@ A package of SwiftUI code for making node editors
 ## Usage
 
 1. `import SwiftNodeEditor`
-2. Conform your model types to `NodeProtocol` (nodes contain pins), `PinProtocol` (pins are connected by wires) and `WireProtocol`.
+2. Conform your model types to `NodeProtocol` (nodes contain sockets), `SocketProtocol` (sockets are connected with wires) and `WireProtocol`.
 3. Implement a `PresentationProtocol` to control how your model types are presented and can be interacted with.
 4. Embed a `NodeGraphEditorView` in your SwiftUI view hierarchy and provide it with your model types and presentation protocol.
 
@@ -42,3 +42,5 @@ See [CAVEAT.md](CAVEAT.md).
 - [ ] Marquee based selection.
 - [ ] Keyboard shortcuts.
 - [ ] Demo app needs a List representation.
+- [ ] Selector mechanism for sockets and wires
+- [ ] Many to many sockets
