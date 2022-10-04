@@ -22,7 +22,9 @@ See [LICENSE.md](LICENSE.md).
 
 ## Caveats
 
-See [CAVEAT.md](CAVEAT.md).
+Repository is (currently) undergoing active development and API surface area is not yet stable. 
+
+See also [CAVEAT.md](CAVEAT.md).
 
 ## TODO
 
