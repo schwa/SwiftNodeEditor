@@ -331,7 +331,7 @@ public struct SocketView <Node, Wire, Socket>: View where Node: NodeProtocol, Wi
         self._node = node
     }
 
-    typealias Context = _Context<Node, Wire, Socket, EmptyPresentation<Node, Wire>>
+    typealias Context = _Context<Node, Wire, Socket, EmptyPresentation<Node, Wire, Socket>>
 
     public var body: some View {
         WireDragSource(contextType: Context.self, socket: socket) {
@@ -459,20 +459,6 @@ public extension View {
 
 // MARK: -
 
-protocol ContextProtocol {
-    associatedtype Node where Node.Socket == Socket
-    associatedtype Wire: WireProtocol where Wire.Socket == Socket
-    associatedtype Socket: SocketProtocol
-    associatedtype Presentation: PresentationProtocol where Presentation.Node == Node
-}
-
-protocol ContextProvider {
-    associatedtype Context: ContextProtocol
-    typealias Node = Context.Node
-    typealias Wire = Context.Wire
-    typealias Socket = Context.Socket
-    typealias Presentation = Context.Presentation
-}
 
 extension Color {
     // TODO: This is silly. Replace with presentation.
@@ -481,11 +467,14 @@ extension Color {
     static let placeholder1 = Color.purple
 }
 
-struct EmptyPresentation <Node, Wire>: PresentationProtocol where Node: NodeProtocol, Wire: WireProtocol {
+struct EmptyPresentation <Node, Wire, Socket>: PresentationProtocol where Node: NodeProtocol, Wire: WireProtocol, Socket: SocketProtocol {
     func content(for node: Binding<Node>) -> some View {
         EmptyView()
     }
     func content(for wire: Binding<Wire>) -> some View {
+        EmptyView()
+    }
+    func content(for socket: Binding<Socket>) -> some View {
         EmptyView()
     }
 }

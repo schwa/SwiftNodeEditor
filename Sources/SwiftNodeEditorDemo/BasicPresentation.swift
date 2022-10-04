@@ -8,6 +8,9 @@ struct BasicPresentation: PresentationProtocol {
     func content(for wire: Binding<MyWire>) -> some View {
         EmptyView()
     }
+    func content(for socket: Binding<MySocket>) -> some View {
+        EmptyView()
+    }
 
     struct NodeView: View {
         @Binding
