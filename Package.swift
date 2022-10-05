@@ -22,15 +22,22 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/schwa/Everything", branch: "main"),
+        .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.3")),
     ],
     targets: [
         .target(
             name: "SwiftNodeEditor",
-            dependencies: ["Everything"]
+            dependencies: [
+                "Everything",
+                .product(name: "Collections", package: "swift-collections"),
+            ]
         ),
         .target(
             name: "SwiftNodeEditorDemo",
-            dependencies: ["SwiftNodeEditor"]
+            dependencies: [
+                "SwiftNodeEditor",
+                .product(name: "Collections", package: "swift-collections"),
+            ]
         ),
         .testTarget(
             name: "SwiftNodeEditorTests",
