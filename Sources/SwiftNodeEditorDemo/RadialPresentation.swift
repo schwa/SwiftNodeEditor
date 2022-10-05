@@ -65,6 +65,4 @@ struct RadialPresentation: PresentationProtocol {
                 .background(path.stroke(Color.white.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
         }
     }
-
 }
-

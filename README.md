@@ -31,7 +31,6 @@ See also [CAVEAT.md](CAVEAT.md).
 
 - [ ] Grep code for TODOs & fix 'em.
 - [ ] Add presentation for pins.
-- [X] Add presentation for wires.
 - [ ] Remove dependency on Everything (may need to put Everything's CoreGraphics in a new package?)
 - [ ] That GeometryReader makes it hard for wire/pin presentation to work without hard-coding size. (Would a layout help?)
 - [ ] Cannot debug in Xcode 14.0 beta 3 (TODO: file a feedback report).
@@ -41,6 +40,7 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Investigating use NodeStyle/WireStyle etc inside Presentation
 - [ ] It's silly that both pins and sockets need to register the same drag gesture - make one gesture and raise it above.
 - [ ] Interface protocols only need to be Identifiable not Hashable also.
+- [X] Add presentation for wires.
 
 ### Nice to Have
 
@@ -50,7 +50,6 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Add more streamlined HI for adding nodes.
 - [ ] Add better z-layer behaviour.
 - [ ] Unit tests for model-layer.
-- [ ] Make demo labels editable.
 - [ ] Labels on wires.
 - [ ] Marquee-based selection.
 - [ ] Keyboard shortcuts.
@@ -59,4 +58,5 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Many-to-many sockets
 - [ ] Use OrderedSet (from swift-collections) in correct places.
 - [ ] Use more from macOS13/iOS16 in this (layouts, backgroundStyle, etc?)
+- [X] Make demo labels editable.
 - [X] Get rid of weird underscore naming with generics.

@@ -56,22 +56,22 @@ public struct WireConfiguration {
 }
 
 /*
-TODO: Use Style style protocols instead of content(for:)
+ TODO: Use Style style protocols instead of content(for:)
 
- public protocol ButtonStyle {
-    associatedtype Body : View
-    @ViewBuilder func makeBody(configuration: Self.Configuration) -> Self.Body
-    typealias Configuration = ButtonStyleConfiguration
-}
+  public protocol ButtonStyle {
+     associatedtype Body : View
+     @ViewBuilder func makeBody(configuration: Self.Configuration) -> Self.Body
+     typealias Configuration = ButtonStyleConfiguration
+ }
 
-public struct ButtonStyleConfiguration {
-    /// A type-erased label of a button.
-    public struct Label : View {
-        public typealias Body = Never
-    }
+ public struct ButtonStyleConfiguration {
+     /// A type-erased label of a button.
+     public struct Label : View {
+         public typealias Body = Never
+     }
 
-    public let role: ButtonRole?
-    public let label: ButtonStyleConfiguration.Label
-    public let isPressed: Bool
-}
-*/
+     public let role: ButtonRole?
+     public let label: ButtonStyleConfiguration.Label
+     public let isPressed: Bool
+ }
+ */

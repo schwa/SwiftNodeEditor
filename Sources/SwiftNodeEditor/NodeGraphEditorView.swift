@@ -217,14 +217,14 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
     var body: some View {
         let configuration = WireConfiguration(active: activeWire?.existingWire == wire, start: start, end: end)
         ChromeView(wire: _wire, configuration: configuration)
-        .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
-            self.activeWire = activeWire
-        }
-        .contextMenu {
-            Button("Delete") {
-                model.wires.removeAll(where: { wire.id == $0.id })
+            .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
+                self.activeWire = activeWire
             }
-        }
+            .contextMenu {
+                Button("Delete") {
+                    model.wires.removeAll(where: { wire.id == $0.id })
+                }
+            }
     }
 
     struct ChromeView: View {

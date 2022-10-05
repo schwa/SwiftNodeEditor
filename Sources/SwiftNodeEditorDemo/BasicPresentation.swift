@@ -29,7 +29,7 @@ struct BasicPresentation: PresentationProtocol {
         var body: some View {
             VStack {
                 FinderStyleTextField(text: $node.name, isEditing: $editing)
-                .frame(maxWidth: 160)
+                    .frame(maxWidth: 80)
                 HStack {
                     ForEach(node.sockets) { socket in
                         SocketView<BasicPresentation>(node: _node, socket: socket)
@@ -78,7 +78,6 @@ struct BasicPresentation: PresentationProtocol {
 }
 
 struct FinderStyleTextField: View {
-
     @Binding
     var text: String
 
@@ -95,8 +94,5 @@ struct FinderStyleTextField: View {
         case true:
             TextField("text", text: _text)
         }
-
     }
-
-
 }
