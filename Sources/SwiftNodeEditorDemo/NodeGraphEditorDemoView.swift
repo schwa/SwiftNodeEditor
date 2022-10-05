@@ -56,7 +56,7 @@ public struct NodeGraphEditorDemoView: View {
             }
             .environmentObject(model)
         #elseif os(iOS)
-            editorView()
+            editorView
                 .environmentObject(model)
         #endif
     }
