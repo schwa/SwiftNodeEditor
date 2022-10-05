@@ -12,6 +12,7 @@
 		45565B0028EABA9700356C55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565AFF28EABA9700356C55 /* Assets.xcassets */; };
 		45565B0428EABA9700356C55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565B0328EABA9700356C55 /* Preview Assets.xcassets */; };
 		4566031D28EABFCB006EB5A9 /* SwiftNodeEditorDemo in Frameworks */ = {isa = PBXBuildFile; productRef = 4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */; };
+		45D628DC28EDD64500296662 /* SwiftNodeEditor in Frameworks */ = {isa = PBXBuildFile; productRef = 45D628DB28EDD64500296662 /* SwiftNodeEditor */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,7 +22,7 @@
 		45565AFF28EABA9700356C55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45565B0128EABA9700356C55 /* SwiftNodeEditorDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftNodeEditorDemo.entitlements; sourceTree = "<group>"; };
 		45565B0328EABA9700356C55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		45565B0B28EABAF300356C55 /* SwiftNodeEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SwiftNodeEditor; sourceTree = "<group>"; };
+		45D628DA28EDD5EB00296662 /* SwiftNodeEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftNodeEditor; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +31,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4566031D28EABFCB006EB5A9 /* SwiftNodeEditorDemo in Frameworks */,
+				45D628DC28EDD64500296662 /* SwiftNodeEditor in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -39,7 +41,7 @@
 		45565AEF28EABA9500356C55 = {
 			isa = PBXGroup;
 			children = (
-				45565B0A28EABAAC00356C55 /* Packages */,
+				45D628D928EDD5EB00296662 /* Packages */,
 				45565AFA28EABA9500356C55 /* SwiftNodeEditorDemoApp */,
 				45565AF928EABA9500356C55 /* Products */,
 				45565B0C28EABB2500356C55 /* Frameworks */,
@@ -74,19 +76,19 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		45565B0A28EABAAC00356C55 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				45565B0B28EABAF300356C55 /* SwiftNodeEditor */,
-			);
-			path = Packages;
-			sourceTree = "<group>";
-		};
 		45565B0C28EABB2500356C55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45D628D928EDD5EB00296662 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				45D628DA28EDD5EB00296662 /* SwiftNodeEditor */,
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -107,6 +109,7 @@
 			name = SwiftNodeEditorDemoApp;
 			packageProductDependencies = (
 				4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */,
+				45D628DB28EDD64500296662 /* SwiftNodeEditor */,
 			);
 			productName = SwiftNodeEditorDemo;
 			productReference = 45565AF828EABA9500356C55 /* SwiftNodeEditorDemoApp.app */;
@@ -382,6 +385,10 @@
 		4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SwiftNodeEditorDemo;
+		};
+		45D628DB28EDD64500296662 /* SwiftNodeEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SwiftNodeEditor;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
