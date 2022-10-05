@@ -2,8 +2,8 @@ import SwiftNodeEditor
 import SwiftUI
 
 struct RadialPresentation: PresentationProtocol {
-    func content(for node: Binding<MyNode>) -> some View {
-        NodeView(node: node)
+    func content(for node: Binding<MyNode>, configuration: NodeConfiguration) -> some View {
+        NodeView(node: node, configuration: configuration)
     }
 
     func content(for wire: Binding<MyWire>, configuration: WireConfiguration) -> some View {
@@ -18,11 +18,10 @@ struct RadialPresentation: PresentationProtocol {
         @Binding
         var node: MyNode
 
-        @Environment(\.nodeSelected)
-        var selected
-
         @EnvironmentObject
         private var model: CanvasModel
+
+        let configuration: NodeConfiguration
 
         var body: some View {
             let radius = 36.0
@@ -49,7 +48,7 @@ struct RadialPresentation: PresentationProtocol {
                 }
             }
             .background(Circle().fill(node.color).frame(width: radius * 2, height: radius * 2))
-            .background(Circle().fill(selected ? Color.accentColor : Color.white.opacity(0.75)).frame(width: radius * 2 + 8, height: radius * 2 + 8))
+            .background(Circle().fill(configuration.selected ? Color.accentColor : Color.white.opacity(0.75)).frame(width: radius * 2 + 8, height: radius * 2 + 8))
             .contextMenu(for: $node)
         }
     }

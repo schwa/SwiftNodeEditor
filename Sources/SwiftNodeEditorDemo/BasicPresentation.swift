@@ -2,8 +2,8 @@ import SwiftNodeEditor
 import SwiftUI
 
 struct BasicPresentation: PresentationProtocol {
-    func content(for node: Binding<MyNode>) -> some View {
-        NodeView(node: node)
+    func content(for node: Binding<MyNode>, configuration: NodeConfiguration) -> some View {
+        NodeView(node: node, configuration: configuration)
     }
 
     func content(for wire: Binding<MyWire>, configuration: WireConfiguration) -> some View {
@@ -18,15 +18,18 @@ struct BasicPresentation: PresentationProtocol {
         @Binding
         var node: MyNode
 
-        @Environment(\.nodeSelected)
-        var selected
+        let configuration: NodeConfiguration
+
+        @State
+        var editing: Bool = false
 
         @EnvironmentObject
         private var model: CanvasModel
 
         var body: some View {
             VStack {
-                Text(verbatim: node.name)
+                FinderStyleTextField(text: $node.name, isEditing: $editing)
+                .frame(maxWidth: 160)
                 HStack {
                     ForEach(node.sockets) { socket in
                         SocketView<BasicPresentation>(node: _node, socket: socket)
@@ -45,8 +48,18 @@ struct BasicPresentation: PresentationProtocol {
             .cornerRadius(16)
             .background(node.color.cornerRadius(14))
             .padding(4)
-            .background(selected ? Color.accentColor.cornerRadius(18) : Color.white.opacity(0.75).cornerRadius(16))
+            .background(configuration.selected ? Color.accentColor.cornerRadius(18) : Color.white.opacity(0.75).cornerRadius(16))
             .contextMenu(for: $node)
+            .onChange(of: configuration.selected) { selected in
+                if selected == false {
+                    editing = false
+                }
+            }
+            .onChange(of: editing) { editing in
+                if editing == true {
+                    configuration.selected = true
+                }
+            }
         }
     }
 
@@ -62,5 +75,28 @@ struct BasicPresentation: PresentationProtocol {
                 .background(path.stroke(Color.white.opacity(0.75), style: StrokeStyle(lineWidth: 6, lineCap: .round)))
         }
     }
+}
+
+struct FinderStyleTextField: View {
+
+    @Binding
+    var text: String
+
+    @Binding
+    var isEditing: Bool
+
+    var body: some View {
+        switch isEditing {
+        case false:
+            Text(verbatim: text)
+                .onTapGesture {
+                    isEditing = true
+                }
+        case true:
+            TextField("text", text: _text)
+        }
+
+    }
+
 
 }

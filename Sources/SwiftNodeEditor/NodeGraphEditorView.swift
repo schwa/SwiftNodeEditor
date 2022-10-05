@@ -150,8 +150,7 @@ internal struct NodeInteractionView<Presentation>: View where Presentation: Pres
 
     var body: some View {
         model.presentation
-            .content(for: _node)
-            .nodeSelected(value: selected)
+            .content(for: _node, configuration: NodeConfiguration(selected: _selected))
             .gesture(dragGesture())
             .onTapGesture {
                 selected.toggle()
@@ -438,36 +437,6 @@ internal struct OnActiveWireDragEndedModifier: ViewModifier {
 extension View {
     func onActiveWireDragEnded(value: OnActiveWireDragEndedKey.Value) -> some View {
         modifier(OnActiveWireDragEndedModifier(value: value))
-    }
-}
-
-// MARK: nodeSelected
-
-public struct NodeSelectedKey: EnvironmentKey {
-    public static var defaultValue = false
-}
-
-public extension EnvironmentValues {
-    var nodeSelected: Bool {
-        get {
-            self[NodeSelectedKey.self]
-        }
-        set {
-            self[NodeSelectedKey.self] = newValue
-        }
-    }
-}
-
-public struct NodeSelectedModifier: ViewModifier {
-    public let value: Bool
-    public func body(content: Content) -> some View {
-        content.environment(\.nodeSelected, value)
-    }
-}
-
-public extension View {
-    func nodeSelected(value: Bool) -> some View {
-        modifier(NodeSelectedModifier(value: value))
     }
 }
 

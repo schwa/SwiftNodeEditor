@@ -33,7 +33,7 @@ public protocol PresentationProtocol {
     associatedtype SocketContent: View
     // TODO: PinContent
 
-    func content(for node: Binding<Node>) -> NodeContent
+    func content(for node: Binding<Node>, configuration: NodeConfiguration) -> NodeContent
 
     // TODO: Not used yet.
     func content(for wire: Binding<Wire>, configuration: WireConfiguration) -> WireContent
@@ -44,12 +44,16 @@ public protocol PresentationProtocol {
     // TODO: content(for pin:)
 }
 
+public struct NodeConfiguration {
+    @Binding
+    public var selected: Bool
+}
+
 public struct WireConfiguration {
     public let active: Bool
     public let start: CGPoint
     public let end: CGPoint
 }
-
 
 /*
 TODO: Use Style style protocols instead of content(for:)
