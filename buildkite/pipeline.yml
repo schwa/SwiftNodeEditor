@@ -1,9 +1,9 @@
 steps:
-  - commands:
+  - command:
       - "swift package clean"
       - "swift build"
-    #   - "swift test --enable-code-coverage"
-    #   - "cd Demo"
-    #   - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=macOS'"
-    #   - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=iOS'"
-    #   - "swiftlint lint --quiet"
+      - "swift test --enable-code-coverage"
+      - "cd Demo"
+      - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=macOS'"
+      - "xcodebuild -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=iOS'"
+      - "swiftlint lint --quiet"
