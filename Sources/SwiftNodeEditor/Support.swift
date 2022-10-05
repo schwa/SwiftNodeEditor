@@ -1,3 +1,4 @@
+import Collections
 import Foundation
 import SwiftUI
 
@@ -49,5 +50,19 @@ public struct AnimatedWire: View {
                 }
             }
             .background(path.stroke(background, style: StrokeStyle(lineWidth: 6, lineCap: .round)))
+    }
+}
+
+extension OrderedDictionary where Value: Identifiable, Key == Value.ID {
+    @discardableResult
+    mutating func insert(_ value: Value) -> (inserted: Bool, memberAfterIndex: Value) {
+        if let oldMember = self[value.id] {
+            self[value.id] = value
+            return (false, oldMember)
+        }
+        else {
+            self[value.id] = value
+            return (true, value)
+        }
     }
 }
