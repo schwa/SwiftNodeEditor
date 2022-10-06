@@ -15,14 +15,6 @@ struct BasicPresentation: PresentationProtocol {
             .background(Circle().fill(Color.white))
     }
 
-    func content(forPin socket: MySocket) -> some View {
-        let radius = 4
-        return Path { path in
-            path.addEllipse(in: CGRect(origin: CGPoint(x: -radius, y: -radius), size: CGSize(width: radius * 2, height: radius * 2)))
-        }
-        .fill(Color.black)
-    }
-
     struct NodeView: View {
         @Binding
         var node: MyNode

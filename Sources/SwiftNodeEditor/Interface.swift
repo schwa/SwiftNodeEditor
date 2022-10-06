@@ -26,16 +26,21 @@ public protocol PresentationProtocol {
     associatedtype Node: NodeProtocol where Node.Socket == Socket
     associatedtype Wire: WireProtocol where Wire.Socket == Socket
     associatedtype Socket: SocketProtocol
+    // TODO: Pin: PinProtocol
 
     associatedtype NodeContent: View
     associatedtype WireContent: View
     associatedtype SocketContent: View
-    associatedtype PinContent: View
+    // TODO: PinContent
 
     func content(for node: Binding<Node>, configuration: NodeConfiguration) -> NodeContent
+
     func content(for wire: Binding<Wire>, configuration: WireConfiguration) -> WireContent
+
+    // TODO: Not used yet.
     func content(for socket: Socket) -> SocketContent
-    func content(forPin socket: Socket) -> PinContent
+
+    // TODO: content(for pin:)
 }
 
 public struct NodeConfiguration {

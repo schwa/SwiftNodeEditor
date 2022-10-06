@@ -217,16 +217,10 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
 
         var body: some View {
             model.presentation.content(for: _wire, configuration: configuration)
-                .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket).offset(configuration.start))
-                .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket).offset(configuration.start))
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket, location: configuration.start))
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket, location: configuration.end))
                 .opacity(configuration.active ? 0.33 : 1)
         }
-    }
-}
-
-extension View {
-    func offset(_ point: CGPoint) -> some View {
-        self.offset(x: point.x, y: point.y)
     }
 }
 
@@ -308,14 +302,18 @@ internal struct PinView<Presentation>: View where Presentation: PresentationProt
     @Binding
     var wire: Wire
 
-    @EnvironmentObject
-    var model: Model<Presentation>
-
     let socket: Socket
 
+    // TODO: instead of location rely on parent setting .offset correctly.
+    let location: CGPoint
+
     var body: some View {
+        let radius = 4
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: wire) {
-            model.presentation.content(forPin: socket)
+            Path { path in
+                path.addEllipse(in: CGRect(origin: location - CGPoint(x: radius, y: radius), size: CGSize(width: radius * 2, height: radius * 2)))
+            }
+            .fill(Color.placeholderBlack)
         }
     }
 }
