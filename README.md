@@ -46,7 +46,6 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Add presentation for pins.
 - [ ] Investigating use NodeStyle/WireStyle etc inside Presentation
 - [ ] Turn README's TODO list into GitHub issues.
-- [ ] Make demo a document-based app with JSON serialization.
 - [ ] Add tools to layout nodes.
 - [ ] Add more streamlined HI for adding nodes.
 - [ ] Add better z-layer behaviour.
@@ -59,5 +58,6 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Many-to-many sockets
 - [ ] Use OrderedSet (from swift-collections) in correct places.
 - [ ] Use more from macOS13/iOS16 in this (layouts, backgroundStyle, etc?)
+- [X] Make demo a document-based app with JSON serialization.
 - [X] Make demo labels editable.
 - [X] Get rid of weird underscore naming with generics.

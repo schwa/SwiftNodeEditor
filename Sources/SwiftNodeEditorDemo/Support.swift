@@ -3,11 +3,9 @@ import SwiftUI
 
 // TODO: use LolUID from Everything
 public struct LolID: Hashable {
-    var rawValue: Int
-
-    static var nextValue: Int = 0
-
-    static var lock = os_unfair_lock_t()
+    private var rawValue: Int
+    private static var nextValue: Int = 0
+    private static var lock = os_unfair_lock_t()
 
     public init() {
         rawValue = LolID.lock.withLock {

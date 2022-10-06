@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		45565AFC28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45565AFB28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift */; };
-		45565AFE28EABA9500356C55 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45565AFD28EABA9500356C55 /* ContentView.swift */; };
+		45565AFC28EABA9500356C55 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45565AFB28EABA9500356C55 /* App.swift */; };
 		45565B0028EABA9700356C55 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565AFF28EABA9700356C55 /* Assets.xcassets */; };
 		45565B0428EABA9700356C55 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45565B0328EABA9700356C55 /* Preview Assets.xcassets */; };
 		4566031D28EABFCB006EB5A9 /* SwiftNodeEditorDemo in Frameworks */ = {isa = PBXBuildFile; productRef = 4566031C28EABFCB006EB5A9 /* SwiftNodeEditorDemo */; };
@@ -17,11 +16,11 @@
 
 /* Begin PBXFileReference section */
 		45565AF828EABA9500356C55 /* SwiftNodeEditorDemoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftNodeEditorDemoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		45565AFB28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftNodeEditorDemoApp.swift; sourceTree = "<group>"; };
-		45565AFD28EABA9500356C55 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		45565AFB28EABA9500356C55 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		45565AFF28EABA9700356C55 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		45565B0128EABA9700356C55 /* SwiftNodeEditorDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftNodeEditorDemo.entitlements; sourceTree = "<group>"; };
 		45565B0328EABA9700356C55 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		45CA3A8728EE974C00430A26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		45D628DA28EDD5EB00296662 /* SwiftNodeEditor */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SwiftNodeEditor; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -59,8 +58,8 @@
 		45565AFA28EABA9500356C55 /* SwiftNodeEditorDemoApp */ = {
 			isa = PBXGroup;
 			children = (
-				45565AFB28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift */,
-				45565AFD28EABA9500356C55 /* ContentView.swift */,
+				45CA3A8728EE974C00430A26 /* Info.plist */,
+				45565AFB28EABA9500356C55 /* App.swift */,
 				45565AFF28EABA9700356C55 /* Assets.xcassets */,
 				45565B0128EABA9700356C55 /* SwiftNodeEditorDemo.entitlements */,
 				45565B0228EABA9700356C55 /* Preview Content */,
@@ -165,8 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45565AFE28EABA9500356C55 /* ContentView.swift in Sources */,
-				45565AFC28EABA9500356C55 /* SwiftNodeEditorDemoApp.swift in Sources */,
+				45565AFC28EABA9500356C55 /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +293,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftNodeEditorDemoApp/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -333,6 +332,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SwiftNodeEditorDemoApp/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

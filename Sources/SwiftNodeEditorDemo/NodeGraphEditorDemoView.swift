@@ -2,8 +2,8 @@ import SwiftNodeEditor
 import SwiftUI
 
 public struct NodeGraphEditorDemoView: View {
-    @StateObject
-    var model = CanvasModel()
+    @Binding
+    var document: GraphDocument
 
     enum PresentationMode {
         case basic
@@ -13,7 +13,12 @@ public struct NodeGraphEditorDemoView: View {
     @State
     var presentationMode: PresentationMode = .basic
 
-    public init() {
+    @State
+    var selection: Set<MyNode.ID> = []
+
+    public init(document: Binding<GraphDocument>) {
+        self._document = document
+        self.presentationMode = .basic
     }
 
     public var body: some View {
@@ -28,18 +33,18 @@ public struct NodeGraphEditorDemoView: View {
             }
             .toolbar {
                 Button {
-                    model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100)))
+                    document.nodes.append(MyNode(position: CGPoint(x: 100, y: 100)))
                 }
             label: {
                     Image(systemName: "plus")
                 }
                 Button {
-                    model.nodes = model.nodes.map {
+                    document.nodes = document.nodes.map {
                         var node = $0
                         node.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
                         return node
                     }
-                    model.wires = model.wires.map {
+                    document.wires = document.wires.map {
                         var wire = $0
                         wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
                         return wire
@@ -54,10 +59,10 @@ public struct NodeGraphEditorDemoView: View {
                 }
                 .pickerStyle(MenuPickerStyle())
             }
-            .environmentObject(model)
+//            .environmentObject(model)
         #elseif os(iOS)
             editorView
-                .environmentObject(model)
+  //              .environmentObject(model)
         #endif
     }
 
@@ -65,21 +70,21 @@ public struct NodeGraphEditorDemoView: View {
     var editorView: some View {
         switch presentationMode {
         case .basic:
-            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: BasicPresentation())
+            NodeGraphEditorView(nodes: $document.nodes, wires: $document.wires, selection: $selection, presentation: BasicPresentation())
         case .radial:
-            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $model.selection, presentation: RadialPresentation())
+            NodeGraphEditorView(nodes: $document.nodes, wires: $document.wires, selection: $selection, presentation: RadialPresentation())
         }
     }
 
     @ViewBuilder
     var detailView: some View {
-        if let id = model.selection.first {
+        if let id = selection.first {
             let binding = Binding<MyNode> {
-                model.nodes.first { id == $0.id }!
+                document.nodes.first { id == $0.id }!
             }
             set: { node in
-                let index = model.nodes.firstIndex(where: { $0.id == node.id })!
-                model.nodes[index] = node
+                let index = document.nodes.firstIndex(where: { $0.id == node.id })!
+                document.nodes[index] = node
             }
             NodeInfoView(node: binding)
         }
