@@ -81,12 +81,15 @@ public struct NodeGraphEditorDemoView: View {
 
     @ViewBuilder
     var editorView: some View {
-        switch presentationMode {
-        case .basic:
-            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $selection, presentation: BasicPresentation())
-        case .radial:
-            NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $selection, presentation: RadialPresentation())
+        Group {
+            switch presentationMode {
+            case .basic:
+                NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $selection, presentation: BasicPresentation())
+            case .radial:
+                NodeGraphEditorView(nodes: $model.nodes, wires: $model.wires, selection: $selection, presentation: RadialPresentation())
+            }
         }
+        .backgroundStyle(.gray.opacity(0.05))
     }
 
     @ViewBuilder

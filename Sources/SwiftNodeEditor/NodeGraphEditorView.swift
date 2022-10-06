@@ -30,9 +30,12 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
         @State
         var socketGeometries: [Socket: CGRect]?
 
+        @Environment(\.backgroundStyle)
+        var backgroundStyle
+
         var body: some View {
             ZStack {
-                Color.placeholderWhite
+                Rectangle().fill(backgroundStyle ?? AnyShapeStyle(.white))
                     .onTapGesture {
                         model.selection = []
                     }
