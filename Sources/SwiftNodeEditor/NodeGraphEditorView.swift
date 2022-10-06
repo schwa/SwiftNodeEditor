@@ -3,6 +3,12 @@
 import Everything
 import SwiftUI
 
+private extension CoordinateSpace {
+    static let canvasName = "canvas"
+    static let canvas = CoordinateSpace.named(canvasName)
+}
+
+
 public struct NodeGraphEditorView<Presentation>: View where Presentation: PresentationProtocol {
     // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
@@ -47,7 +53,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
                     activeWire.map { ActiveWireView<Presentation>(activeWire: $0, socketGeometries: socketGeometries) }
                 }
             }
-            .coordinateSpace(name: "canvas")
+            .coordinateSpace(name: CoordinateSpace.canvasName)
             .onPreferenceChange(ActiveWirePreferenceKey<Presentation>.self) { activeWire in
                 self.activeWire = activeWire
             }
@@ -133,7 +139,7 @@ internal struct NodeInteractionView<Presentation>: View where Presentation: Pres
     }
 
     func dragGesture() -> some Gesture {
-        DragGesture(coordinateSpace: .named("canvas"))
+        DragGesture(coordinateSpace: .canvas)
             .onChanged { value in
                 if dragging == false {
                     dragOffset = value.location - node.position
@@ -277,10 +283,8 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
     public var body: some View {
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: nil) {
             GeometryReader { geometry in
-
                 model.presentation.content(for: socket)
-
-                    .preference(key: SocketGeometriesPreferenceKey<Socket>.self, value: [socket: geometry.frame(in: .named("canvas"))])
+                    .preference(key: SocketGeometriesPreferenceKey<Socket>.self, value: [socket: geometry.frame(in: .canvas)])
             }
             .frame(width: 16, height: 16)
         }
