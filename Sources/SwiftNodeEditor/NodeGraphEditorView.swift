@@ -264,6 +264,9 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
     @Binding
     var node: Node
 
+    @EnvironmentObject
+    var model: Model<Presentation>
+
     let socket: Socket
 
     public init(node: Binding<Node>, socket: Socket) {
@@ -274,8 +277,9 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
     public var body: some View {
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: nil) {
             GeometryReader { geometry in
-                Circle().stroke(Color.placeholderBlack, lineWidth: 4)
-                    .background(Circle().fill(Color.placeholderWhite))
+
+                model.presentation.content(for: socket)
+
                     .preference(key: SocketGeometriesPreferenceKey<Socket>.self, value: [socket: geometry.frame(in: .named("canvas"))])
             }
             .frame(width: 16, height: 16)

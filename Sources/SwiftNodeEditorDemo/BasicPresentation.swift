@@ -10,8 +10,9 @@ struct BasicPresentation: PresentationProtocol {
         WireView(wire: wire, configuration: configuration)
     }
 
-    func content(for socket: Binding<MySocket>) -> some View {
-        EmptyView()
+    func content(for socket: MySocket) -> some View {
+        Circle().stroke(Color.black, lineWidth: 4)
+            .background(Circle().fill(Color.white))
     }
 
     struct NodeView: View {

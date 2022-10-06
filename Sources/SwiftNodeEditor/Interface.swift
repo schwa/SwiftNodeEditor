@@ -35,11 +35,10 @@ public protocol PresentationProtocol {
 
     func content(for node: Binding<Node>, configuration: NodeConfiguration) -> NodeContent
 
-    // TODO: Not used yet.
     func content(for wire: Binding<Wire>, configuration: WireConfiguration) -> WireContent
 
     // TODO: Not used yet.
-    func content(for socket: Binding<Socket>) -> SocketContent
+    func content(for socket: Socket) -> SocketContent
 
     // TODO: content(for pin:)
 }
