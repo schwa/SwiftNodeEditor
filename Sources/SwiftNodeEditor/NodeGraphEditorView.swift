@@ -74,31 +74,9 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
 
 // MARK: Model
 
-internal class Model<Presentation>: ObservableObject where Presentation: PresentationProtocol {
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
 
-    @Binding
-    var nodes: [Node]
 
-    @Binding
-    var wires: [Wire]
-
-    @Binding
-    var selection: Set<Node.ID>
-
-    let presentation: Presentation
-
-    init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
-        _nodes = nodes
-        _wires = wires
-        _selection = selection
-        self.presentation = presentation
-    }
-}
-
-// MARK: NodesView
+// MARK: Nodes
 
 internal struct NodesView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -128,8 +106,6 @@ internal struct NodesView<Presentation>: View where Presentation: PresentationPr
         }
     }
 }
-
-// MARK: -
 
 internal struct NodeInteractionView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -175,7 +151,7 @@ internal struct NodeInteractionView<Presentation>: View where Presentation: Pres
     }
 }
 
-// MARK: -
+// MARK: Wires
 
 internal struct WiresView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -197,8 +173,6 @@ internal struct WiresView<Presentation>: View where Presentation: PresentationPr
         }
     }
 }
-
-// MARK: -
 
 internal struct WireView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -248,7 +222,72 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
     }
 }
 
-// MARK: -
+internal struct ActiveWireView<Presentation>: View where Presentation: PresentationProtocol {
+    typealias Node = Presentation.Node
+    typealias Wire = Presentation.Wire
+    typealias Socket = Presentation.Socket
+
+    let start: CGPoint
+    let end: CGPoint
+    let color: Color
+
+    init(activeWire: ActiveWire<Presentation>, socketGeometries: [ActiveWireView<Presentation>.Socket: CGRect]) {
+        var color: Color {
+            for (_, frame) in socketGeometries {
+                if frame.contains(activeWire.endLocation) {
+                    return Color.placeholder1
+                }
+            }
+            return Color.placeholderBlack
+        }
+        self.color = color
+
+        var destinationSocket: Socket? {
+            for (socket, frame) in socketGeometries {
+                if frame.contains(activeWire.endLocation) {
+                    return socket
+                }
+            }
+            return nil
+        }
+        start = socketGeometries[activeWire.startSocket]!.midXMidY
+        end = destinationSocket.map { socketGeometries[$0]! }.map(\.midXMidY) ?? activeWire.endLocation
+    }
+
+    var body: some View {
+        AnimatedWire(start: start, end: end, foreground: color)
+    }
+}
+
+// MARK: Sockets
+
+public struct SocketView<Presentation>: View where Presentation: PresentationProtocol {
+    public typealias Node = Presentation.Node
+    public typealias Socket = Presentation.Socket
+
+    @Binding
+    var node: Node
+
+    let socket: Socket
+
+    public init(node: Binding<Node>, socket: Socket) {
+        self.socket = socket
+        _node = node
+    }
+
+    public var body: some View {
+        WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: nil) {
+            GeometryReader { geometry in
+                Circle().stroke(Color.placeholderBlack, lineWidth: 4)
+                    .background(Circle().fill(Color.placeholderWhite))
+                    .preference(key: SocketGeometriesPreferenceKey<Socket>.self, value: [socket: geometry.frame(in: .named("canvas"))])
+            }
+            .frame(width: 16, height: 16)
+        }
+    }
+}
+
+// MARK: Pins
 
 // TODO: (maybe) make public when content(for socket) is implemented.
 internal struct PinView<Presentation>: View where Presentation: PresentationProtocol {
@@ -275,7 +314,7 @@ internal struct PinView<Presentation>: View where Presentation: PresentationProt
     }
 }
 
-// MARK: -
+// MARK: Misc views
 
 // TODO: (maybe) make public when content(for socket) is implemented.
 internal struct WireDragSource<Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
@@ -327,154 +366,5 @@ internal struct WireDragSource<Presentation, Content>: View where Presentation: 
                     model.wires.removeAll { $0.id == existingWire.id }
                 }
             }
-    }
-}
-
-internal struct ActiveWireView<Presentation>: View where Presentation: PresentationProtocol {
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
-
-    let start: CGPoint
-    let end: CGPoint
-    let color: Color
-
-    init(activeWire: ActiveWire<Presentation>, socketGeometries: [ActiveWireView<Presentation>.Socket: CGRect]) {
-        var color: Color {
-            for (_, frame) in socketGeometries {
-                if frame.contains(activeWire.endLocation) {
-                    return Color.placeholder1
-                }
-            }
-            return Color.placeholderBlack
-        }
-        self.color = color
-
-        var destinationSocket: Socket? {
-            for (socket, frame) in socketGeometries {
-                if frame.contains(activeWire.endLocation) {
-                    return socket
-                }
-            }
-            return nil
-        }
-        start = socketGeometries[activeWire.startSocket]!.midXMidY
-        end = destinationSocket.map { socketGeometries[$0]! }.map(\.midXMidY) ?? activeWire.endLocation
-    }
-
-    var body: some View {
-        AnimatedWire(start: start, end: end, foreground: color)
-    }
-}
-
-// MARK: -
-
-public struct SocketView<Presentation>: View where Presentation: PresentationProtocol {
-    public typealias Node = Presentation.Node
-    public typealias Socket = Presentation.Socket
-
-    @Binding
-    var node: Node
-
-    let socket: Socket
-
-    public init(node: Binding<Node>, socket: Socket) {
-        self.socket = socket
-        _node = node
-    }
-
-    public var body: some View {
-        WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: nil) {
-            GeometryReader { geometry in
-                Circle().stroke(Color.placeholderBlack, lineWidth: 4)
-                    .background(Circle().fill(Color.placeholderWhite))
-                    .preference(key: SocketGeometriesPreferenceKey<Socket>.self, value: [socket: geometry.frame(in: .named("canvas"))])
-            }
-            .frame(width: 16, height: 16)
-        }
-    }
-}
-
-// MARK: SocketGeometriesPreferenceKey
-
-internal struct SocketGeometriesPreferenceKey<Socket>: PreferenceKey where Socket: SocketProtocol {
-    typealias Value = [Socket: CGRect]
-
-    static var defaultValue: Value {
-        [:]
-    }
-
-    static func reduce(value: inout Value, nextValue: () -> Value) {
-        value.merge(nextValue()) { _, rhs in
-            rhs
-        }
-    }
-}
-
-// MARK: onActiveWireDragEnded
-
-internal struct OnActiveWireDragEndedKey: EnvironmentKey {
-    typealias Value = (() -> Void)?
-    static var defaultValue: Value = nil
-}
-
-extension EnvironmentValues {
-    var onActiveWireDragEnded: OnActiveWireDragEndedKey.Value {
-        get {
-            self[OnActiveWireDragEndedKey.self]
-        }
-        set {
-            self[OnActiveWireDragEndedKey.self] = newValue
-        }
-    }
-}
-
-internal struct OnActiveWireDragEndedModifier: ViewModifier {
-    let value: OnActiveWireDragEndedKey.Value
-
-    func body(content: Content) -> some View {
-        content.environment(\.onActiveWireDragEnded, value)
-    }
-}
-
-extension View {
-    func onActiveWireDragEnded(value: OnActiveWireDragEndedKey.Value) -> some View {
-        modifier(OnActiveWireDragEndedModifier(value: value))
-    }
-}
-
-// MARK: ActiveWire
-
-struct ActiveWire<Presentation>: Equatable where Presentation: PresentationProtocol {
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
-
-    let startLocation: CGPoint
-    let endLocation: CGPoint
-    let startSocket: Socket
-    let existingWire: Wire?
-
-    init(startLocation: CGPoint, endLocation: CGPoint, startSocket: Socket, existingWire: Wire?) {
-        self.startLocation = startLocation
-        self.endLocation = endLocation
-        self.startSocket = startSocket
-        self.existingWire = existingWire
-    }
-}
-
-// MARK: ActiveWirePreferenceKey
-
-struct ActiveWirePreferenceKey<Presentation>: PreferenceKey where Presentation: PresentationProtocol {
-    typealias Node = Presentation.Node
-    typealias Wire = Presentation.Wire
-    typealias Socket = Presentation.Socket
-
-    static var defaultValue: ActiveWire<Presentation>? {
-        nil
-    }
-
-    static func reduce(value: inout ActiveWire<Presentation>?, nextValue: () -> ActiveWire<Presentation>?) {
-        value = nextValue() ?? value
     }
 }
