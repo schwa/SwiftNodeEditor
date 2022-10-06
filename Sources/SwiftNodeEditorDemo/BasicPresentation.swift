@@ -42,7 +42,7 @@ public struct BasicPresentation: PresentationProtocol {
                             .contextMenu(for: .constant(socket), of: $node)
                     }
                     Button {
-                        node.sockets.append(MySocket())
+                        node.sockets.insert(MySocket())
                     }
                     label: {
                         Image(systemName: "plus.circle")

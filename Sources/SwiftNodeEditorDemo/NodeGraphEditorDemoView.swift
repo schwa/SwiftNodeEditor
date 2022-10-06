@@ -44,32 +44,32 @@ public struct NodeGraphEditorDemoView: View {
         }
         .environmentObject(model)
         .onAppear {
-            model.nodes = document.nodes
-            model.wires = document.wires
+            model.nodes = OrderedIDSet(document.nodes)
+            model.wires = OrderedIDSet(document.wires)
         }
         .onReceive(model.objectWillChange) {
-            document.nodes = model.nodes
-            document.wires = model.wires
+            document.nodes = Array(model.nodes)
+            document.wires = Array(model.wires)
         }
     }
 
     @ViewBuilder
     var toolbar: some View {
         Button(systemImage: "plus") {
-            model.nodes.append(MyNode(position: CGPoint(x: 100, y: 100)))
+            model.nodes.insert(MyNode(position: CGPoint(x: 100, y: 100)))
         }
 
         Button(systemImage: "paintpalette") {
-            model.nodes = model.nodes.map {
+            model.nodes = OrderedIDSet(model.nodes.map {
                 var node = $0
                 node.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
                 return node
-            }
-            model.wires = model.wires.map {
+            })
+            model.wires = OrderedIDSet(model.wires.map {
                 var wire = $0
                 wire.color = Color(hue: Double.random(in: 0 ..< 1), saturation: 1, brightness: 1)
                 return wire
-            }
+            })
         }
 
         Picker("Mode", selection: $presentationMode) {

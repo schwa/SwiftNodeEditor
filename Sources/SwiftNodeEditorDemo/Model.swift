@@ -6,7 +6,7 @@ public struct MyNode: Identifiable, NodeProtocol, Codable {
     public var id = UUID()
     public var name: String
     public var position: CGPoint
-    public var sockets: [MySocket] = [
+    public var sockets: OrderedIDSet<MySocket> = [
         Socket(),
         Socket(),
     ]
@@ -47,10 +47,10 @@ public struct MySocket: SocketProtocol, Codable {
 
 public class CanvasModel: ObservableObject {
     @Published
-    public var nodes: [MyNode] = [] // TODO: We do a lot of brute force lookup via id - make into a "ordered id set" type container
+    public var nodes: OrderedIDSet<MyNode> = [] // TODO: We do a lot of brute force lookup via id - make into a "ordered id set" type container
 
     @Published
-    public var wires: [MyWire] = [] // TODO: We do a lot of brute force lookup via id - make into a "ordered id set" type container
+    public var wires: OrderedIDSet<MyWire> = [] // TODO: We do a lot of brute force lookup via id - make into a "ordered id set" type container
 
     @Published
     public var selection: Set<MyNode.ID> = []

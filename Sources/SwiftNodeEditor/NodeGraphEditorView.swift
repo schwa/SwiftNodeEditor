@@ -7,7 +7,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
     // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
 
-    public init(nodes: Binding<[Presentation.Node]>, wires: Binding<[Presentation.Wire]>, selection: Binding<Set<Presentation.Node.ID>>, presentation: Presentation) {
+    public init(nodes: Binding<OrderedIDSet<Presentation.Node>>, wires: Binding<OrderedIDSet<Presentation.Wire>>, selection: Binding<Set<Presentation.Node.ID>>, presentation: Presentation) {
         model = Model<Presentation>(nodes: nodes, wires: wires, selection: selection, presentation: presentation)
     }
 
@@ -63,7 +63,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
                 }
                 for (socket, frame) in socketGeometries {
                     if frame.contains(activeWire.endLocation) {
-                        model.wires.append(Wire(sourceSocket: activeWire.startSocket, destinationSocket: socket))
+                        model.wires.insert(Wire(sourceSocket: activeWire.startSocket, destinationSocket: socket))
                         return
                     }
                 }
@@ -155,7 +155,7 @@ internal struct WiresView<Presentation>: View where Presentation: PresentationPr
     typealias Socket = Presentation.Socket
 
     @Binding
-    var wires: [Wire]
+    var wires: OrderedIDSet<Wire>
 
     let socketGeometries: [Socket: CGRect]
 
@@ -195,7 +195,7 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
             }
             .contextMenu {
                 Button("Delete") {
-                    model.wires.removeAll(where: { wire.id == $0.id })
+                    model.wires.remove(wire)
                 }
             }
     }
@@ -356,8 +356,8 @@ internal struct WireDragSource<Presentation, Content>: View where Presentation: 
                 onActiveWireDragEnded?()
                 dragging = false
                 activeWire = nil
-                if let existingWire = existingWire {
-                    model.wires.removeAll { $0.id == existingWire.id }
+                if let existingWire {
+                    model.wires.remove(existingWire)
                 }
             }
     }

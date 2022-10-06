@@ -12,7 +12,7 @@ struct ContextMenuForNodeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.contextMenu {
             Button("Delete") {
-                model.nodes.removeAll { node.id == $0.id }
+                model.nodes.remove(node)
                 model.wires.removeAll { node.sockets.map(\.id).contains($0.destinationSocket.id) }
             }
             Divider()
@@ -45,7 +45,7 @@ struct ContextMenuForSocketModifier: ViewModifier {
     func body(content: Content) -> some View {
         content.contextMenu {
             Button("Delete", action: {
-                node.sockets.removeAll { socket.id == $0.id }
+                node.sockets.remove(socket)
                 model.wires.removeAll { socket.id == $0.sourceSocket.id || socket.id == $0.destinationSocket.id }
             })
         }
