@@ -38,7 +38,7 @@ struct RadialPresentation: PresentationProtocol {
                 Text(verbatim: node.name)
                 ZStack {
                     Button {
-                        node.sockets.append(MySocket())
+                        node.sockets.insert(MySocket())
                     }
                     label: {
                         Image(systemName: "plus.circle")

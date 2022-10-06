@@ -7,17 +7,17 @@ internal class Model<Presentation>: ObservableObject where Presentation: Present
     typealias Socket = Presentation.Socket
 
     @Binding
-    var nodes: [Node]
+    var nodes: OrderedIDSet<Node>
 
     @Binding
-    var wires: [Wire]
+    var wires: OrderedIDSet<Wire>
 
     @Binding
     var selection: Set<Node.ID>
 
     let presentation: Presentation
 
-    init(nodes: Binding<[Node]>, wires: Binding<[Wire]>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
+    init(nodes: Binding<OrderedIDSet<Node>>, wires: Binding<OrderedIDSet<Wire>>, selection: Binding<Set<Node.ID>>, presentation: Presentation) {
         _nodes = nodes
         _wires = wires
         _selection = selection
