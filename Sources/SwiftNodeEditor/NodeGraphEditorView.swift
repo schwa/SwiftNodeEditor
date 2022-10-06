@@ -3,12 +3,6 @@
 import Everything
 import SwiftUI
 
-private extension CoordinateSpace {
-    static let canvasName = "canvas"
-    static let canvas = CoordinateSpace.named(canvasName)
-}
-
-
 public struct NodeGraphEditorView<Presentation>: View where Presentation: PresentationProtocol {
     // TODO: This is NOT a StateObject - it should be.
     let model: Model<Presentation>
@@ -293,34 +287,30 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
 
 // MARK: Pin Views
 
-// TODO: (maybe) make public when content(for socket) is implemented.
 internal struct PinView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
     typealias Socket = Presentation.Socket
 
+    @EnvironmentObject
+    var model: Model<Presentation>
+
     @Binding
     var wire: Wire
 
     let socket: Socket
-
-    // TODO: instead of location rely on parent setting .offset correctly.
     let location: CGPoint
 
     var body: some View {
-        let radius = 4
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: wire) {
-            Path { path in
-                path.addEllipse(in: CGRect(origin: location - CGPoint(x: radius, y: radius), size: CGSize(width: radius * 2, height: radius * 2)))
-            }
-            .fill(Color.placeholderBlack)
+            model.presentation.content(forPin: socket)
+                .offset(location)
         }
     }
 }
 
 // MARK: Misc views
 
-// TODO: (maybe) make public when content(for socket) is implemented.
 internal struct WireDragSource<Presentation, Content>: View where Presentation: PresentationProtocol, Content: View {
     typealias Node = Presentation.Node
     typealias Wire = Presentation.Wire
@@ -372,3 +362,9 @@ internal struct WireDragSource<Presentation, Content>: View where Presentation: 
             }
     }
 }
+
+private extension CoordinateSpace {
+    static let canvasName = "canvas"
+    static let canvas = CoordinateSpace.named(canvasName)
+}
+

@@ -66,3 +66,9 @@ extension OrderedDictionary where Value: Identifiable, Key == Value.ID {
         }
     }
 }
+
+extension View {
+    func offset(_ point: CGPoint) -> some View {
+        self.offset(x: point.x, y: point.y)
+    }
+}
