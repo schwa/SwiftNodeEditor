@@ -217,10 +217,16 @@ internal struct WireView<Presentation>: View where Presentation: PresentationPro
 
         var body: some View {
             model.presentation.content(for: _wire, configuration: configuration)
-                .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket, location: configuration.start))
-                .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket, location: configuration.end))
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.sourceSocket).offset(configuration.start))
+                .overlay(PinView<Presentation>(wire: _wire, socket: wire.destinationSocket).offset(configuration.start))
                 .opacity(configuration.active ? 0.33 : 1)
         }
+    }
+}
+
+extension View {
+    func offset(_ point: CGPoint) -> some View {
+        self.offset(x: point.x, y: point.y)
     }
 }
 
@@ -307,13 +313,9 @@ internal struct PinView<Presentation>: View where Presentation: PresentationProt
 
     let socket: Socket
 
-    // TODO: instead of location rely on parent setting .offset correctly.
-    let location: CGPoint
-
     var body: some View {
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: wire) {
             model.presentation.content(forPin: socket)
-                .offset(x: location.x, y: location.y)
         }
     }
 }
