@@ -18,9 +18,6 @@ struct RadialPresentation: PresentationProtocol {
         @Binding
         var node: MyNode
 
-        @EnvironmentObject
-        private var model: CanvasModel
-
         let configuration: NodeConfiguration
 
         var body: some View {

@@ -23,9 +23,6 @@ struct BasicPresentation: PresentationProtocol {
         @State
         var editing: Bool = false
 
-        @EnvironmentObject
-        private var model: CanvasModel
-
         var body: some View {
             VStack {
                 FinderStyleTextField(text: $node.name, isEditing: $editing)
