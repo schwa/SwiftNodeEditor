@@ -55,24 +55,24 @@ extension View {
 }
 
 enum DynamicColor: String, RawRepresentable, CaseIterable {
-    case red = "red"
-    case orange = "orange"
-    case yellow = "yellow"
-    case green = "green"
-    case mint = "mint"
-    case teal = "teal"
-    case cyan = "cyan"
-    case blue = "blue"
-    case indigo = "indigo"
-    case purple = "purple"
-    case pink = "pink"
-    case brown = "brown"
-    case white = "white"
-    case gray = "gray"
-    case black = "black"
-    case clear = "clear"
-    case primary = "primary"
-    case secondary = "secondary"
+    case red
+    case orange
+    case yellow
+    case green
+    case mint
+    case teal
+    case cyan
+    case blue
+    case indigo
+    case purple
+    case pink
+    case brown
+    case white
+    case gray
+    case black
+    case clear
+    case primary
+    case secondary
 
     init?(color: Color) {
         switch color {

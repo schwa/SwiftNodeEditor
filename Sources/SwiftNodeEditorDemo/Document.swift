@@ -5,7 +5,7 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 extension UTType {
-    static let nodeGraph = UTType(exportedAs: "io.schwa.nodegraph") // TODO
+    static let nodeGraph = UTType(exportedAs: "io.schwa.nodegraph") // TODO:
 }
 
 public struct GraphDocument: FileDocument {

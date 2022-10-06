@@ -7,6 +7,5 @@ struct SwiftNodeEditorDemoApp: App {
         DocumentGroup(newDocument: GraphDocument()) { file in
             NodeGraphEditorDemoView(document: file.$document)
         }
-
     }
 }

@@ -70,7 +70,6 @@ public class CanvasModel: ObservableObject {
     }
 }
 
-
 public struct Graph: Codable {
     public var nodes: [MyNode] = []
     public var wires: [MyWire] = []

@@ -20,24 +20,24 @@ public struct NodeGraphEditorDemoView: View {
     var selection: Set<MyNode.ID> = []
 
     public init(document: Binding<GraphDocument>) {
-        self._document = document
-        self.presentationMode = .basic
+        _document = document
+        presentationMode = .basic
     }
 
     public var body: some View {
         Group {
-#if os(macOS)
-            HSplitView {
-                editorView
-                    .frame(minWidth: 320, minHeight: 240)
-                    .layoutPriority(1)
+            #if os(macOS)
+                HSplitView {
+                    editorView
+                        .frame(minWidth: 320, minHeight: 240)
+                        .layoutPriority(1)
 
-                detailView
-                    .ignoresSafeArea(.all, edges: .top)
-            }
-#elseif os(iOS)
-            editorView
-#endif
+                    detailView
+                        .ignoresSafeArea(.all, edges: .top)
+                }
+            #elseif os(iOS)
+                editorView
+            #endif
         }
         .toolbar {
             toolbar
@@ -78,8 +78,6 @@ public struct NodeGraphEditorDemoView: View {
         }
         .pickerStyle(MenuPickerStyle())
     }
-
-
 
     @ViewBuilder
     var editorView: some View {
