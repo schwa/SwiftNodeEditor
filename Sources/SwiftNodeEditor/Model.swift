@@ -25,7 +25,6 @@ internal class Model<Presentation>: ObservableObject where Presentation: Present
     }
 }
 
-
 // MARK: PreferenceKeys & EnvironmentKeys (& relevant modifiers)
 
 // MARK: SocketGeometriesPreferenceKey

@@ -72,11 +72,7 @@ public struct NodeGraphEditorView<Presentation>: View where Presentation: Presen
     }
 }
 
-// MARK: Model
-
-
-
-// MARK: Nodes
+// MARK: Node Views
 
 internal struct NodesView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -151,7 +147,7 @@ internal struct NodeInteractionView<Presentation>: View where Presentation: Pres
     }
 }
 
-// MARK: Wires
+// MARK: Wire Views
 
 internal struct WiresView<Presentation>: View where Presentation: PresentationProtocol {
     typealias Node = Presentation.Node
@@ -259,7 +255,7 @@ internal struct ActiveWireView<Presentation>: View where Presentation: Presentat
     }
 }
 
-// MARK: Sockets
+// MARK: Socket Views
 
 public struct SocketView<Presentation>: View where Presentation: PresentationProtocol {
     public typealias Node = Presentation.Node
@@ -287,7 +283,7 @@ public struct SocketView<Presentation>: View where Presentation: PresentationPro
     }
 }
 
-// MARK: Pins
+// MARK: Pin Views
 
 // TODO: (maybe) make public when content(for socket) is implemented.
 internal struct PinView<Presentation>: View where Presentation: PresentationProtocol {

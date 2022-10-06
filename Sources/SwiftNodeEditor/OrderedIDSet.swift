@@ -2,8 +2,8 @@ import Collections
 import Foundation
 
 public struct OrderedIDSet<Element> where Element: Identifiable {
-    typealias Storage = OrderedDictionary<Element.ID, Element>
-    var storage = Storage()
+    fileprivate typealias Storage = OrderedDictionary<Element.ID, Element>
+    fileprivate var storage = Storage()
 }
 
 // MARK: -
