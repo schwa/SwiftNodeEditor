@@ -49,6 +49,9 @@ extension OrderedIDSet: Collection {
     }
 }
 
+extension OrderedIDSet: RandomAccessCollection {
+}
+
 // MARK: -
 
 public extension OrderedIDSet {
@@ -60,6 +63,10 @@ public extension OrderedIDSet {
         storage[element.id] = element
     }
 
+    mutating func remove(_ element: Element) {
+        storage[element.id] = nil
+    }
+
     subscript(id id: Element.ID) -> Element? {
         get {
             storage[id]
@@ -68,10 +75,37 @@ public extension OrderedIDSet {
             storage[id] = newValue
         }
     }
+
+    mutating func removeAll(where shouldBeRemoved: (Element) throws -> Bool) rethrows {
+        try storage.removeAll { key, value in
+            return try shouldBeRemoved(value)
+        }
+    }
 }
 
 public extension OrderedIDSet where Element: Equatable {
     func contains(_ element: Element) -> Bool {
         storage[element.id] == element
+    }
+}
+
+extension OrderedIDSet: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: Element...) {
+        self = .init(elements)
+    }
+}
+
+extension OrderedIDSet: Encodable where Element: Encodable {
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(Array(self))
+    }
+}
+
+extension OrderedIDSet: Decodable where Element: Decodable {
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let elements = try container.decode(Array<Element>.self)
+        self = .init(elements)
     }
 }
