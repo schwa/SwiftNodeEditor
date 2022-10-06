@@ -302,18 +302,18 @@ internal struct PinView<Presentation>: View where Presentation: PresentationProt
     @Binding
     var wire: Wire
 
+    @EnvironmentObject
+    var model: Model<Presentation>
+
     let socket: Socket
 
     // TODO: instead of location rely on parent setting .offset correctly.
     let location: CGPoint
 
     var body: some View {
-        let radius = 4
         WireDragSource(presentationType: Presentation.self, socket: socket, existingWire: wire) {
-            Path { path in
-                path.addEllipse(in: CGRect(origin: location - CGPoint(x: radius, y: radius), size: CGSize(width: radius * 2, height: radius * 2)))
-            }
-            .fill(Color.placeholderBlack)
+            model.presentation.content(forPin: socket)
+                .offset(x: location.x, y: location.y)
         }
     }
 }

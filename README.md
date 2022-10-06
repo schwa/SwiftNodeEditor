@@ -35,13 +35,14 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] Documentation.
 - [ ] Fix project structure - the app and demo package should be merged.
 - [ ] Simple demo.
+- [X] Add presentation for pins.
 - [X] Cannot debug in Xcode 14.0 beta 3 (TODO: file a feedback report).
 - [X] Add presentation for sockets.
 - [X] Add presentation for wires.
 
 ### Nice to Have
 
-- [ ] The differences in the 'content(for:)' api is weird 
+- [ ] The differences in the 'content(for:)' api are weird 
 - [ ] It's silly that both pins and sockets need to register the same drag gesture - make one gesture and raise it above.
 - [ ] Interface protocols only need to be Identifiable not Hashable also.
 - [ ] Socket sizes are hard-coded.
