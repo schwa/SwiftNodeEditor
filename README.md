@@ -42,6 +42,7 @@ See also [CAVEAT.md](CAVEAT.md).
 
 ### Nice to Have
 
+- [ ] Use Collection prototypes in Interface instead of OrderedIDSet (i.e. make interface totally generic)
 - [ ] The differences in the 'content(for:)' api are weird 
 - [ ] It's silly that both pins and sockets need to register the same drag gesture - make one gesture and raise it above.
 - [ ] Interface protocols only need to be Identifiable not Hashable also.
@@ -60,8 +61,8 @@ See also [CAVEAT.md](CAVEAT.md).
 - [ ] The Demo app needs a List representation.
 - [ ] Selector mechanism for sockets and wires (can I connect this wire to this socket?)
 - [ ] Many-to-many sockets
-- [ ] Use OrderedSet (from swift-collections) in correct places.
 - [ ] Use more from macOS13/iOS16 in this (layouts, backgroundStyle, etc?)
+- [X] Use OrderedSet (from swift-collections) in correct places.
 - [X] Make demo a document-based app with JSON serialization.
 - [X] Make demo labels editable.
 - [X] Get rid of weird underscore naming with generics.

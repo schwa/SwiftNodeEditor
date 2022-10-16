@@ -3,12 +3,15 @@ import SwiftNodeEditor
 import SwiftUI
 
 public struct MyNode: Identifiable, NodeProtocol, Codable {
+    public typealias Socket = MySocket
+    public typealias SocketCollection = OrderedIDSet<MySocket>
+
     public var id = UUID()
     public var name: String
     public var position: CGPoint
-    public var sockets: OrderedIDSet<MySocket> = [
-        Socket(),
-        Socket(),
+    public var sockets: SocketCollection = [
+        MySocket(),
+        MySocket(),
     ]
     public var color: Color = .mint
 
