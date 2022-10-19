@@ -1,21 +1,21 @@
 import SwiftNodeEditor
 import SwiftUI
 
-struct BasicPresentation: PresentationProtocol {
-    func content(for node: Binding<MyNode>, configuration: NodeConfiguration) -> some View {
+public struct BasicPresentation: PresentationProtocol {
+    public func content(for node: Binding<MyNode>, configuration: NodeConfiguration) -> some View {
         NodeView(node: node, configuration: configuration)
     }
 
-    func content(for wire: Binding<MyWire>, configuration: WireConfiguration) -> some View {
+    public func content(for wire: Binding<MyWire>, configuration: WireConfiguration) -> some View {
         WireView(wire: wire, configuration: configuration)
     }
 
-    func content(for socket: MySocket) -> some View {
+    public func content(for socket: MySocket) -> some View {
         Circle().stroke(Color.black, lineWidth: 4)
             .background(Circle().fill(Color.white))
     }
 
-    func content(forPin socket: MySocket) -> some View {
+    public func content(forPin socket: MySocket) -> some View {
         let radius = 4
         return Path { path in
             path.addEllipse(in: CGRect(origin: CGPoint(x: -radius, y: -radius), size: CGSize(width: radius * 2, height: radius * 2)))
@@ -83,14 +83,19 @@ struct BasicPresentation: PresentationProtocol {
     }
 }
 
-struct FinderStyleTextField: View {
+public struct FinderStyleTextField: View {
     @Binding
     var text: String
 
     @Binding
     var isEditing: Bool
 
-    var body: some View {
+    public init(text: Binding<String>, isEditing: Binding<Bool>) {
+        self._text = text
+        self._isEditing = isEditing
+    }
+
+    public var body: some View {
         switch isEditing {
         case false:
             Text(verbatim: text)
