@@ -1,5 +1,6 @@
 import Foundation
 import SwiftUI
+import Algorithms
 
 // TODO: use LolUID from Everything
 public struct LolID: Hashable {
@@ -196,9 +197,9 @@ extension Color: Codable {
             let components: [CGFloat]
             switch stringComponents.count {
             case 3:
-                components = stringComponents.split(by: 1).map { UInt8($0, radix: 16)! }.map { CGFloat($0) / 255 }
+                components = stringComponents.map { UInt8(String($0), radix: 16)! }.map { CGFloat($0) / 255 }
             case 6, 8:
-                components = stringComponents.split(by: 2).map { UInt8($0, radix: 16)! }.map { CGFloat($0) / 255 }
+                components = stringComponents.chunks(ofCount: 2).map { UInt8(String($0), radix: 16)! }.map { CGFloat($0) / 255 }
             default:
                 fatalError()
             }
