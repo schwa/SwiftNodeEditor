@@ -3,9 +3,9 @@ import SwiftUI
 
 public protocol NodeProtocol: Identifiable {
     associatedtype Socket: SocketProtocol
+    associatedtype SocketCollection: Collection <Socket>
     var position: CGPoint { get set }
-    // TODO: Can add same socket twice. Need an OrderedSet
-    var sockets: OrderedIDSet<Socket> { get set }
+    var sockets: SocketCollection { get set }
 }
 
 // TODO: You cannot go from Sockets to other types. This could be an issue for implementors - but there's no reason implementors can't provide this themselves.
