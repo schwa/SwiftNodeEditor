@@ -21,7 +21,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/schwa/Everything", branch: "main"),
+        .package(url: "https://github.com/schwa/Everything", .upToNextMajor(from: "0.1.0")),
         .package(url: "https://github.com/apple/swift-collections.git", .upToNextMajor(from: "1.0.3")),
     ],
     targets: [
