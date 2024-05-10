@@ -7,7 +7,7 @@ let package = Package(
     name: "SwiftNodeEditor",
     platforms: [
         .iOS("16.0"),
-        .macOS("13.0"),
+        .macOS("14.2"),
         .macCatalyst("16.0"),
     ],
     products: [
