@@ -1,0 +1,25 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: Swift
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: 16
+      - uses: actions/checkout@v3
+      - name: Build
+        run: swift build -v
+      - name: Run tests
+        run: swift test -v
+      - name: Build Demo (macOS)
+        run: cd Demo && -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=macOS'
+      - name: Build Demo (iOS)
+        run: cd Demo && -scheme 'SwiftNodeEditorDemoApp' -allowProvisioningUpdates -destination 'generic/platform=macOS'
